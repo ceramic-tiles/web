@@ -1,13 +1,16 @@
 ## Ceramic Document Viewer
 
-Only available locally.
+_Available locally_
 
-_Install Ceramic CLI_
-`npm install -g @ceramicnetwork/cli`
+**Install Ceramic CLI**
 
-_Start Ceramic Daemon_
-`ceramic daemon`
+```npm install -g @ceramicnetwork/cli```
 
-_Run App_
+**Start Ceramic Daemon**
+
+```ceramic daemon```
+
+**Run app**
 Will open automatically in browser.
-`npm start`
+
+```npm start```
