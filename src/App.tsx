@@ -7,10 +7,12 @@ import {
   Flex,
   Heading,
   Input,
+  Link,
   Text,
   theme,
 } from '@chakra-ui/react'
 import * as React from 'react'
+import { GiAtom } from 'react-icons/gi'
 
 const API_URL = 'https://gateway-clay.ceramic.network'
 const ceramic = new CeramicClient(API_URL)
@@ -30,6 +32,22 @@ export const App = () => {
 
   return (
     <ChakraProvider theme={theme}>
+      <Flex
+        justifyContent="space-between"
+        alignItems="center"
+        px={6}
+        py={3}
+        borderBottomWidth={1}
+      >
+        <a href="https://mechanaut.xyz">
+          <Flex justifyContent="space-between" alignItems="center">
+            <GiAtom />
+            <Heading ml={1} size="md">
+              Mechanaut
+            </Heading>
+          </Flex>
+        </a>
+      </Flex>
       <Box m={6}>
         <Heading mb={6} size="lg">
           Ceramic Document Viewer
@@ -70,11 +88,37 @@ export const App = () => {
             : 'Get a document to see its metadata'}
         </Box>
         <Divider />
-        <Text py={6}>
-          By <a href="https://twitter.com/tannedoaksprout">oaksprout</a> from{' '}
-          <a href="https://mechanaut.xyz">Mechanaut</a>
-        </Text>
       </Box>
+      <Flex
+        my={6}
+        borderTopWidth={1}
+        px={6}
+        py={3}
+        alignItems="center"
+        justifyContent="space-between"
+      >
+        <Text mr={6}>
+          Made by{' '}
+          <Link
+            textDecoration="underline"
+            href="https://twitter.com/tannedoaksprout"
+          >
+            oaksprout
+          </Link>{' '}
+          in support of{' '}
+          <Link href="https://ceramic.network" textDecoration="underline">
+            Ceramic
+          </Link>
+        </Text>
+        <a href="https://mechanaut.xyz">
+          <Flex alignItems="center">
+            <GiAtom />
+            <Heading ml={1} size="md">
+              Mechanaut
+            </Heading>
+          </Flex>
+        </a>
+      </Flex>
     </ChakraProvider>
   )
 }
