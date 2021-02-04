@@ -11,6 +11,7 @@ _Available locally_
 ```ceramic daemon```
 
 **Run app**
+
 Will open automatically in browser.
 
 ```npm start```
