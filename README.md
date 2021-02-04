@@ -14,4 +14,4 @@ _Available locally_
 
 Will open automatically in browser.
 
-```npm start```
+```npm install && npm start```
