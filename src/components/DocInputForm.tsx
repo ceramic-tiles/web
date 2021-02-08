@@ -33,7 +33,6 @@ const DocInputForm = (props: any) => {
         <Input
           size="lg"
           name="docId"
-          value={docId}
           ref={register()}
           width={630}
           mr={3}

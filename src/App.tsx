@@ -31,7 +31,6 @@ export const App = (props: AppProps) => {
   const { isLoading, error, data: doc } = useDoc(docId)
   const { isOpen, onToggle } = useDisclosure({ defaultIsOpen: true })
   const { colorMode } = useColorMode()
-  // const text = useColorModeValue('white', 'white')
 
   const formatAnchorStatus = (anchorStatus: number) => {
     switch (anchorStatus) {
@@ -187,6 +186,13 @@ export const App = (props: AppProps) => {
           <Text mb={6}>🚨 Something's wrong – try another document</Text>
         ) : (
           <>
+            <Box mb={6}>
+              <Heading size="md" mb={3}>
+                Document ID
+              </Heading>
+              {docId}
+            </Box>
+            <Divider my={6} />
             <Box mb={6}>
               <Heading size="md" mb={3}>
                 Content

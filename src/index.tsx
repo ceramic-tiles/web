@@ -15,12 +15,7 @@ ReactDOM.render(
         <ColorModeScript initialColorMode={theme.config.initialColorMode} />
         <Router>
           <Redirect
-            from="/"
-            to="/document/k3y52l7qbv1frxjdr9qpn9ldvbxb0jg4eig7wtjkdu6gk84vyazw9j4txf4o6d2io"
-            noThrow
-          />
-          <Redirect
-            from="/document"
+            from="/*"
             to="/document/k3y52l7qbv1frxjdr9qpn9ldvbxb0jg4eig7wtjkdu6gk84vyazw9j4txf4o6d2io"
             noThrow
           />
