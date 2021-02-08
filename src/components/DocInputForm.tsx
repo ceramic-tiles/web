@@ -17,7 +17,7 @@
 
 // export default DocInputForm;
 
-import { Button, Flex, Input } from '@chakra-ui/react'
+import { Button, Flex, Input, useColorMode } from '@chakra-ui/react'
 import { navigate } from '@reach/router'
 import React from 'react'
 import { useForm } from 'react-hook-form'
@@ -28,6 +28,7 @@ const DocInputForm = (props: any) => {
     defaultValues: { docId: docId.toString() },
   })
   const onSubmit = (values: any) => navigate(`/document/${values.docId}`)
+  const { colorMode } = useColorMode()
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -46,7 +47,8 @@ const DocInputForm = (props: any) => {
           disabled={isLoading}
           mb={3}
           size="lg"
-          bgGradient="linear(to-r, #f0580e, rgb(255, 153, 103))"
+          color="white"
+          bgGradient="linear(to-r, gray.600, gray.500)"
           _hover={{
             bgColor: 'rgb(255, 153, 103)',
           }}

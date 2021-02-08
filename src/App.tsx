@@ -3,6 +3,8 @@ import {
   Box,
   Button,
   ChakraProvider,
+  ColorModeScript,
+  DarkMode,
   Divider,
   Flex,
   Heading,
@@ -12,7 +14,8 @@ import {
   Skeleton,
   Stack,
   Text,
-  theme,
+  useColorMode,
+  useColorModeValue,
   useDisclosure,
 } from '@chakra-ui/react'
 import { navigate, RouteComponentProps } from '@reach/router'
@@ -20,6 +23,8 @@ import * as React from 'react'
 import { GiAtom } from 'react-icons/gi'
 import DocInputForm from './components/DocInputForm'
 import useDoc from './hooks/useDoc'
+import theme from './theme'
+import ColorModeSwitcher from './components/ColorModeSwitcher'
 
 const API_URL = 'https://gateway-clay.ceramic.network'
 export const ceramic = new CeramicClient(API_URL)
@@ -32,6 +37,8 @@ export const App = (props: AppProps) => {
   const { docId } = props
   const { isLoading, error, data: doc } = useDoc(docId)
   const { isOpen, onToggle } = useDisclosure({ defaultIsOpen: true })
+  const { colorMode } = useColorMode()
+  // const text = useColorModeValue('white', 'white')
 
   const formatAnchorStatus = (anchorStatus: number) => {
     switch (anchorStatus) {
@@ -50,7 +57,7 @@ export const App = (props: AppProps) => {
     }
   }
   return (
-    <ChakraProvider theme={theme}>
+    <>
       <Flex
         justifyContent="space-between"
         alignItems="center"
@@ -66,6 +73,7 @@ export const App = (props: AppProps) => {
             </Heading>
           </Flex>
         </a>
+        <ColorModeSwitcher justifySelf="flex-end" />
       </Flex>
       <Box px={6} py={6}>
         <Heading mb={6} size="lg">
@@ -80,9 +88,8 @@ export const App = (props: AppProps) => {
                 Hide
               </Button>
             </Flex>
-            <Stack direction={{ base: 'column', md: 'row' }} spacing="3">
+            <Stack direction={{ base: 'column', lg: 'row' }} spacing="3">
               <Box
-                backgroundColor="gray.800"
                 p={3}
                 borderRadius={5}
                 onClick={() =>
@@ -90,11 +97,12 @@ export const App = (props: AppProps) => {
                     `/document/k3y52l7qbv1frxjdr9qpn9ldvbxb0jg4eig7wtjkdu6gk84vyazw9j4txf4o6d2io`
                   )
                 }
-                bgGradient={
+                borderWidth={3}
+                borderColor={
                   docId ===
                   'k3y52l7qbv1frxjdr9qpn9ldvbxb0jg4eig7wtjkdu6gk84vyazw9j4txf4o6d2io'
-                    ? 'linear(to-r, #f0580e, rgb(255, 153, 103))'
-                    : 'linear(to-r, gray.600, gray.500)'
+                    ? '#f0580e'
+                    : 'gray.600'
                 }
               >
                 <Text fontWeight="bold" mb={3} fontSize="lg">
@@ -105,13 +113,14 @@ export const App = (props: AppProps) => {
                 </Text>
                 {docId ===
                 'k3y52l7qbv1frxjdr9qpn9ldvbxb0jg4eig7wtjkdu6gk84vyazw9j4txf4o6d2io' ? (
-                  <Text fontStyle="italic">Viewing</Text>
+                  <Text fontStyle="italic" color="#f0580e">
+                    Viewing
+                  </Text>
                 ) : (
                   <Button size="sm">View</Button>
                 )}
               </Box>
               <Box
-                backgroundColor="gray.800"
                 p={3}
                 borderRadius={5}
                 onClick={() =>
@@ -119,11 +128,12 @@ export const App = (props: AppProps) => {
                     `/document/kjzl6cwe1jw14bek5i7rcr1q9byw61w4rswrhmvja0kfos89ty0notx0vh7kx3b`
                   )
                 }
-                bgGradient={
+                borderWidth={3}
+                borderColor={
                   docId ===
                   'kjzl6cwe1jw14bek5i7rcr1q9byw61w4rswrhmvja0kfos89ty0notx0vh7kx3b'
-                    ? 'linear(to-r, #f0580e, rgb(255, 153, 103))'
-                    : 'linear(to-r, gray.600, gray.500)'
+                    ? '#f0580e'
+                    : 'gray.600'
                 }
               >
                 <Text fontWeight="bold" mb={3} fontSize="lg">
@@ -134,13 +144,14 @@ export const App = (props: AppProps) => {
                 </Text>
                 {docId ===
                 'kjzl6cwe1jw14bek5i7rcr1q9byw61w4rswrhmvja0kfos89ty0notx0vh7kx3b' ? (
-                  <Text fontStyle="italic">Viewing</Text>
+                  <Text fontStyle="italic" color="#f0580e">
+                    Viewing
+                  </Text>
                 ) : (
                   <Button size="sm">View</Button>
                 )}
               </Box>
               <Box
-                backgroundColor="gray.800"
                 p={3}
                 borderRadius={5}
                 onClick={() =>
@@ -148,11 +159,12 @@ export const App = (props: AppProps) => {
                     `/document/kjzl6cwe1jw14anzfvjyint54cf2m7lb04xnsmsdem9emhvgn816hzecvzqa65g`
                   )
                 }
-                bgGradient={
+                borderWidth={3}
+                borderColor={
                   docId ===
                   'kjzl6cwe1jw14anzfvjyint54cf2m7lb04xnsmsdem9emhvgn816hzecvzqa65g'
-                    ? 'linear(to-r, #f0580e, rgb(255, 153, 103))'
-                    : 'linear(to-r, gray.600, gray.500)'
+                    ? '#f0580e'
+                    : 'gray.600'
                 }
               >
                 <Text fontWeight="bold" mb={3} fontSize="lg">
@@ -163,7 +175,9 @@ export const App = (props: AppProps) => {
                 </Text>
                 {docId ===
                 'kjzl6cwe1jw14anzfvjyint54cf2m7lb04xnsmsdem9emhvgn816hzecvzqa65g' ? (
-                  <Text fontStyle="italic">Viewing</Text>
+                  <Text fontStyle="italic" color="#f0580e">
+                    Viewing
+                  </Text>
                 ) : (
                   <Button size="sm">View</Button>
                 )}
@@ -193,7 +207,13 @@ export const App = (props: AppProps) => {
                     {typeof entry[1] === 'string' ? (
                       <Text>{entry[1]}</Text>
                     ) : (
-                      <Box backgroundColor={'gray.900'} p={3} borderRadius={5}>
+                      <Box
+                        backgroundColor={
+                          colorMode === 'dark' ? 'gray.900' : 'gray.100'
+                        }
+                        p={3}
+                        borderRadius={5}
+                      >
                         <pre>{JSON.stringify(entry[1], undefined, 2)}</pre>
                       </Box>
                     )}
@@ -310,6 +330,6 @@ export const App = (props: AppProps) => {
           </Flex>
         </a>
       </Flex>
-    </ChakraProvider>
+    </>
   )
 }
