@@ -2,29 +2,22 @@ import CeramicClient from '@ceramicnetwork/http-client'
 import {
   Box,
   Button,
-  ChakraProvider,
-  ColorModeScript,
-  DarkMode,
   Divider,
   Flex,
   Heading,
   Link,
-  Select,
-  SimpleGrid,
   Skeleton,
   Stack,
   Text,
   useColorMode,
-  useColorModeValue,
   useDisclosure,
 } from '@chakra-ui/react'
 import { navigate, RouteComponentProps } from '@reach/router'
 import * as React from 'react'
 import { GiAtom } from 'react-icons/gi'
+import ColorModeSwitcher from './components/ColorModeSwitcher'
 import DocInputForm from './components/DocInputForm'
 import useDoc from './hooks/useDoc'
-import theme from './theme'
-import ColorModeSwitcher from './components/ColorModeSwitcher'
 
 const API_URL = 'https://gateway-clay.ceramic.network'
 export const ceramic = new CeramicClient(API_URL)
