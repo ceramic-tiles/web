@@ -24,9 +24,7 @@ import { useForm } from 'react-hook-form'
 
 const DocInputForm = (props: any) => {
   const { docId, isLoading } = props
-  const { handleSubmit, register, errors } = useForm({
-    defaultValues: { docId: docId.toString() },
-  })
+  const { handleSubmit, register, errors } = useForm()
   const onSubmit = (values: any) => navigate(`/document/${values.docId}`)
 
   return (
@@ -35,6 +33,7 @@ const DocInputForm = (props: any) => {
         <Input
           size="lg"
           name="docId"
+          value={docId}
           ref={register()}
           width={630}
           mr={3}
