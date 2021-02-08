@@ -23,7 +23,7 @@ import React from 'react'
 import { useForm } from 'react-hook-form'
 
 const DocInputForm = (props: any) => {
-  const { docId, isLoading } = props
+  const { isLoading } = props
   const { handleSubmit, register, errors } = useForm()
   const onSubmit = (values: any) => navigate(`/document/${values.docId}`)
 
