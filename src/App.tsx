@@ -1,7 +1,9 @@
 import CeramicClient from '@ceramicnetwork/http-client'
+import { Grid, GridItem } from "@chakra-ui/react"
 import {
   Box,
   Button,
+  Code,
   Divider,
   Flex,
   Heading,
@@ -16,7 +18,7 @@ import { navigate, RouteComponentProps } from '@reach/router'
 import * as React from 'react'
 import { GiAtom } from 'react-icons/gi'
 import ColorModeSwitcher from './components/ColorModeSwitcher'
-import DocInputForm from './components/DocInputForm'
+import DocInputForm from './components/DocInputForm'  
 import useDoc from './hooks/useDoc'
 
 const API_URL = 'https://gateway-clay.ceramic.network'
@@ -193,92 +195,97 @@ export const App = (props: AppProps) => {
               {docId}
             </Box>
             <Divider my={6} />
-            <Box mb={6}>
-              <Heading size="md" mb={3}>
-                Content
-              </Heading>
-              {doc?.state?.content ? (
-                Object.entries(doc?.state?.content).map((entry: any[]) => (
-                  <Box mb={3}>
-                    <Text mb={1} fontWeight="bold">
-                      {entry[0] && entry[0].toString()}
-                    </Text>
-                    {typeof entry[1] === 'string' ? (
-                      <Text>{entry[1]}</Text>
+            <Grid templateColumns="repeat(6, 1fr)" gap={6}>
+              <GridItem colSpan={4}>
+                <Box mb={6}>
+                <Heading size="md" mb={3}>
+                  Content
+                </Heading>
+                {doc?.state?.content ? (
+                  Object.entries(doc?.state?.content).map((entry: any[]) => (
+                    <Box mb={3}>
+                      <Text mb={1} fontWeight="bold">
+                        {entry[0] && entry[0].toString()}
+                      </Text>
+                      {typeof entry[1] === 'string' ? (
+                        <Text>{entry[1]}</Text>
+                      ) : (
+                        <Box
+                          backgroundColor={
+                            colorMode === 'dark' ? 'gray.900' : 'gray.100'
+                          }
+                          p={3}
+                          borderRadius={5}
+                        >
+                          <Code fontSize="sm" background="transparent" overflowX="auto" whiteSpace="pre" display="block">{JSON.stringify(entry[1], undefined, 2)}</Code>
+                        </Box>
+                      )}
+                    </Box>
+                  ))
+                ) : (
+                  <>
+                    {isLoading ? (
+                      <Skeleton height="20px" width={400} />
                     ) : (
-                      <Box
-                        backgroundColor={
-                          colorMode === 'dark' ? 'gray.900' : 'gray.100'
-                        }
-                        p={3}
-                        borderRadius={5}
-                      >
-                        <pre>{JSON.stringify(entry[1], undefined, 2)}</pre>
-                      </Box>
+                      <Text>Get a document to see its content</Text>
                     )}
-                  </Box>
-                ))
-              ) : (
-                <>
-                  {isLoading ? (
-                    <Skeleton height="20px" width={400} />
-                  ) : (
-                    <Text>Get a document to see its content</Text>
-                  )}
-                </>
-              )}
-            </Box>
-            <Divider my={6} />
-            <Box mb={6}>
-              <Heading mb={3} size="md">
-                Metadata
-              </Heading>
-              {doc?.state?.metadata ? (
-                Object.entries(doc?.state?.metadata).map((entry: any[]) => (
+                  </>
+                )}
+                </Box>
+              </GridItem>
+              <GridItem colSpan={2}>
+                <Box>
+                  <Heading mb={3} size="md">
+                    Anchoring
+                  </Heading>
                   <Box mb={3}>
                     <Text fontWeight="bold" mb={3}>
-                      {entry[0] && entry[0].toString()}
+                      Status
                     </Text>
-                    <Text>{entry[1] && entry[1].toString()}</Text>
+                    <Text>
+                      {doc?.state?.anchorStatus &&
+                        formatAnchorStatus(doc?.state?.anchorStatus)}
+                    </Text>
                   </Box>
-                ))
-              ) : (
-                <>
-                  {isLoading ? (
-                    <Skeleton height="20px" width={400} />
+                  <Box mb={3}>
+                    <Text fontWeight="bold">Block Number</Text>
+                    <Text>{doc?.state?.anchorProof?.blockNumber}</Text>
+                  </Box>
+                  <Box mb={3}>
+                    <Text fontWeight="bold">Block Timestamp</Text>
+                    <Text>{doc?.state?.anchorProof?.blockTimestamp}</Text>
+                  </Box>
+                  <Box mb={3}>
+                    <Text fontWeight="bold">Chain Id</Text>
+                    <Text>{doc?.state?.anchorProof?.chainId}</Text>
+                  </Box>
+                </Box>
+                <Divider my={5} />
+                <Box>
+                  <Heading mb={3} size="md">
+                    Metadata
+                  </Heading>
+                  {doc?.state?.metadata ? (
+                    Object.entries(doc?.state?.metadata).map((entry: any[]) => (
+                      <Box mb={3}>
+                        <Text fontWeight="bold" mb={3}>
+                          {entry[0] && entry[0].toString()}
+                        </Text>
+                        <Text wordBreak="break-all">{entry[1] && entry[1].toString()}</Text>
+                      </Box>
+                    ))
                   ) : (
-                    <Text>Get a document to see its metadata</Text>
+                    <>
+                      {isLoading ? (
+                        <Skeleton height="20px" width={400} />
+                      ) : (
+                        <Text>Get a document to see its metadata</Text>
+                      )}
+                    </>
                   )}
-                </>
-              )}
-            </Box>
-            <Divider my={6} />
-            <Box mb={6}>
-              <Heading mb={3} size="md">
-                Anchoring
-              </Heading>
-              <Box mb={3}>
-                <Text fontWeight="bold" mb={3}>
-                  Status
-                </Text>
-                <Text>
-                  {doc?.state?.anchorStatus &&
-                    formatAnchorStatus(doc?.state?.anchorStatus)}
-                </Text>
-              </Box>
-              <Box mb={3}>
-                <Text fontWeight="bold">Block Number</Text>
-                <Text>{doc?.state?.anchorProof?.blockNumber}</Text>
-              </Box>
-              <Box mb={3}>
-                <Text fontWeight="bold">Block Timestamp</Text>
-                <Text>{doc?.state?.anchorProof?.blockTimestamp}</Text>
-              </Box>
-              <Box mb={3}>
-                <Text fontWeight="bold">Chain Id</Text>
-                <Text>{doc?.state?.anchorProof?.chainId}</Text>
-              </Box>
-            </Box>
+                </Box>
+              </GridItem>
+            </Grid>
           </>
         )}
         {/* {doc && (
