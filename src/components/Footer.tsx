@@ -1,13 +1,7 @@
 import {
-  Box,
-  Button,
-  Divider,
   Flex,
-  Heading,
   Text,
   Link,
-  Stack,
-  HStack,
 } from '@chakra-ui/react'
 import React from 'react'
 import { AiFillGithub } from 'react-icons/ai'

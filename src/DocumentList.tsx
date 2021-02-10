@@ -8,7 +8,6 @@ import {
   Thead,
   Tbody,
   Text,
-  Tfoot,
   Tr,
   Th,
   Td,
@@ -27,7 +26,8 @@ interface DocListProps extends RouteComponentProps {
 }
 
 const DocumentList = (props: DocListProps) => {
-  const [paginateLimit, setpaginateLimit] = useState(15);
+  // const [paginateLimit, setpaginateLimit] = useState(15);
+  const paginateLimit = 15;
   const [paginatePage, setpaginatePage] = useState(0);
 
   const dataTop = docData.docs.slice(paginateLimit * paginatePage, (paginateLimit * paginatePage) + paginateLimit)

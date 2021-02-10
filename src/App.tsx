@@ -1,22 +1,7 @@
 import CeramicClient from '@ceramicnetwork/http-client'
-import { Grid, GridItem } from "@chakra-ui/react"
-import {
-  Box,
-  Button,
-  Code,
-  Divider,
-  Flex,
-  Heading,
-  Link,
-  Skeleton,
-  Stack,
-  Text,
-  useColorMode,
-  useDisclosure,
-} from '@chakra-ui/react'
-import { Redirect, Router } from '@reach/router'
+import { Router } from '@reach/router'
 
-import { navigate, RouteComponentProps } from '@reach/router'
+import { RouteComponentProps } from '@reach/router'
 import * as React from 'react'
 import Header from './components/Header'
 import Footer from './components/Footer'
@@ -33,8 +18,6 @@ interface AppProps extends RouteComponentProps {
 }
 
 export const App = (props: AppProps) => {
-  const { docId } = props
-  const { colorMode } = useColorMode()
 
   return (
     <>
