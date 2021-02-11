@@ -32,7 +32,7 @@ const Header = () => {
               <GiAllSeeingEye color="orange.500" size="40" />
             </Box>
             <Heading as="h1" size="lg" letterSpacing="-1px">
-              Seeramic
+              Tiles
             </Heading>
           </Flex>
         </Link>
