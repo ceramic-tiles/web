@@ -33,7 +33,7 @@ const DocumentList = (props: DocListProps) => {
   const [paginatePage, setpaginatePage] = useState(0)
 
   const [value, loading, error] = useCollection(
-    db.collection('documents').orderBy('timestamp', "desc")
+    db.collection('documents').orderBy('timestamp', 'desc')
   )
 
   // const dataTop = docData.docs.slice(
@@ -83,7 +83,12 @@ const DocumentList = (props: DocListProps) => {
               return (
                 <Tr key={id}>
                   <Td>
-                    <Link as={ReachLink} to={`/document/${id}`} isTruncated color='orange.500'>
+                    <Link
+                      as={ReachLink}
+                      to={`/document/${id}`}
+                      isTruncated
+                      textDecoration="underline"
+                    >
                       {id}
                     </Link>
                   </Td>
