@@ -1,4 +1,4 @@
-## Ceramic Document Viewer
+## Tiles
 
 **Run app**
 

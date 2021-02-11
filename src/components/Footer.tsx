@@ -21,7 +21,7 @@ const Footer = () => {
           oaksprout
         </Link>{' '}
         &{' '}
-        <Link textDecoration="underline" href="https://twitter.com/isidorosp">
+        <Link textDecoration="underline" href="https://github.com/isidorosp">
           isidorosp
         </Link>{' '}
         in support of{' '}
@@ -37,7 +37,7 @@ const Footer = () => {
       </Text>
       <a href="https://mechanaut.xyz">
         <Flex alignItems="center">
-          <Link href="https://github.com/oaksprout/ceramic-document-viewer">
+          <Link href="https://github.com/oaksprout/tiles">
             <AiFillGithub size="24" />
           </Link>
         </Flex>
