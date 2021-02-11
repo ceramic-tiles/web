@@ -14,6 +14,7 @@ import React, { useState } from 'react'
 import { useCollection } from 'react-firebase-hooks/firestore'
 import LoadingTableRows from './components/LoadingTableRows'
 import db from './firebase'
+import moment from 'moment'
 
 interface DocList {
   docs: [{ docId: string }]
@@ -27,7 +28,7 @@ const DocumentList = (props: DocListProps) => {
   const [paginatePage, setpaginatePage] = useState(0)
 
   const [value, loading, error] = useCollection(
-    db.collection('documents').orderBy('timestamp')
+    db.collection('documents').orderBy('timestamp', 'desc')
   )
 
   // const dataTop = docData.docs.slice(
@@ -77,11 +78,18 @@ const DocumentList = (props: DocListProps) => {
               return (
                 <Tr key={id}>
                   <Td>
-                    <Link as={ReachLink} to={`/document/${id}`}>
+                    <Link
+                      as={ReachLink}
+                      to={`/document/${id}`}
+                      isTruncated
+                      textDecoration="underline"
+                    >
                       {id}
                     </Link>
                   </Td>
-                  <Td>{timestamp || '—'}</Td>
+                  <Td>
+                    {moment(timestamp).format('h:mm:ssA, MMMM Do YYYY') || '—'}
+                  </Td>
                 </Tr>
               )
             })}
