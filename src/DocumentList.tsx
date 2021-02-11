@@ -1,18 +1,22 @@
 import {
   Box,
+  Button,
   Flex,
+  Heading,
+  HStack,
   Link,
+  StackDivider,
   Table,
   Tbody,
   Td,
-  Text,
   Th,
   Thead,
   Tr,
 } from '@chakra-ui/react'
 import { Link as ReachLink, RouteComponentProps } from '@reach/router'
-import React, { useState } from 'react'
-import { useCollection } from 'react-firebase-hooks/firestore'
+import React from 'react'
+import { FaChevronLeft, FaChevronRight } from 'react-icons/fa'
+import { usePagination } from 'use-pagination-firestore'
 import LoadingTableRows from './components/LoadingTableRows'
 import db from './firebase'
 import moment from 'moment'
@@ -24,40 +28,40 @@ interface DocList {
 interface DocListProps extends RouteComponentProps {}
 
 const DocumentList = (props: DocListProps) => {
-  // const [paginateLimit, setpaginateLimit] = useState(15);
-  const paginateLimit = 15
-  const [paginatePage, setpaginatePage] = useState(0)
+  const {
+    items,
+    isLoading: loading,
+    isStart,
+    isEnd,
+    getPrev,
+    getNext,
+  } = usePagination(db.collection('documents').orderBy('timestamp', 'desc'), {
+    limit: 20,
+  })
 
-  const [value, loading, error] = useCollection(
-    db.collection('documents').orderBy('timestamp', 'desc')
-  )
-
-  // const dataTop = docData.docs.slice(
-  //   paginateLimit * paginatePage,
-  //   paginateLimit * paginatePage + paginateLimit
-  // )
-
-  const handlePrev = () => {
-    if (paginatePage > 0) setpaginatePage(paginatePage - 1)
-  }
-
-  const handleNext = () => {
-    setpaginatePage(paginatePage + 1)
-  }
-
-  if (error) return <strong>Error: {JSON.stringify(error)}</strong>
+  // if (error) return <strong>Error: {JSON.stringify(error)}</strong>
 
   return (
-    <Box px={{ base: 0, md: 6 }}>
-      {/* <HStack fontSize="sm" divider={<StackDivider />}>
-        <Text onClick={handlePrev}>
-          <Link href="#">Prev</Link>
-        </Text>
-        <Text mx={4}>Page {paginatePage + 1}</Text>
-        <Text onClick={handleNext}>
-          <Link href="#">Next</Link>
-        </Text>
-      </HStack> */}
+    <Box p={6}>
+      <Flex alignItems="center" justifyContent="space-between" m={6}>
+        <Heading size="md">All Documents</Heading>
+        <HStack fontSize="sm" divider={<StackDivider />}>
+          <Button
+            onClick={getPrev}
+            disabled={isStart}
+            leftIcon={<FaChevronLeft />}
+          >
+            Prev
+          </Button>
+          <Button
+            onClick={getNext}
+            disabled={isEnd}
+            rightIcon={<FaChevronRight />}
+          >
+            Next
+          </Button>
+        </HStack>
+      </Flex>
       <Box width="100%">
         <Table>
           <Thead>
@@ -67,26 +71,25 @@ const DocumentList = (props: DocListProps) => {
             </Tr>
           </Thead>
           <Tbody>
-            {loading && <LoadingTableRows />}
-            {value?.docs.map((doc: any) => {
-              const { id, timestamp } = doc.data()
-              return (
-                <Tr key={id}>
-                  <Td maxWidth={{ base: '300px' }}>
-                    <Link
-                      as={ReachLink}
-                      to={`/document/${id}`}
-                      textDecoration="underline"
-                    >
-                      <Text isTruncated>{id}</Text>
-                    </Link>
-                  </Td>
-                  <Td>
-                    {moment(timestamp).format("h:mm:ssA, MMM D 'YY") || '—'}
-                  </Td>
-                </Tr>
-              )
-            })}
+            {loading ? (
+              <LoadingTableRows />
+            ) : (
+              items?.map((item: any) => {
+                const { id, timestamp } = item
+                return (
+                  <Tr key={id}>
+                    <Td>
+                      <Link as={ReachLink} to={`/document/${id}`}>
+                        {id}
+                      </Link>
+                    </Td>
+                    <Td>
+                      {moment(timestamp).format("h:mm:ssA, MMM D 'YY") || '—'}
+                    </Td>
+                  </Tr>
+                )
+              })
+            )}
           </Tbody>
         </Table>
       </Box>

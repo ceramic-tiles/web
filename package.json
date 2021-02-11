@@ -28,6 +28,7 @@
     "react-query": "^3.7.1",
     "react-scripts": "4.0.1",
     "typescript": "^3.9.5",
+    "use-pagination-firestore": "0.0.2",
     "web-vitals": "^0.2.2"
   },
   "scripts": {
