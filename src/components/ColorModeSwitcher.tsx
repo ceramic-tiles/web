@@ -11,7 +11,7 @@ const ColorModeSwitcher = (props: any) => {
     <IconButton
       size="md"
       fontSize="lg"
-      variant="ghost"
+      variant="outline"
       color="current"
       marginLeft="2"
       onClick={toggleColorMode}

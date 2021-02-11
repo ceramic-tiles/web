@@ -1,59 +1,61 @@
-// import * as React from 'react';
-
-// const DocInputForm = () => {
-//   return (
-//     <Flex mb={6} alignItems="center" wrap="wrap">
-//       <Input
-//         onChange={(e: any) => handleDocIdInput(e.target.value)}
-//         width={600}
-//         mr={3}
-//         placeholder="e.g. kjzl6cwe1jw147c4oeqx7mp9ov3zzp3t7qewn7gjximydwwxearw4lyxg8ig382"
-//         value={docIdInput}
-//       />
-//       <Button onClick={() => getDoc(docIdInput)}>Get Document</Button>
-//     </Flex>
-//   )
-// }
-
-// export default DocInputForm;
-
-import { Button, Flex, Input } from '@chakra-ui/react'
+import { Box, Button, Center, Flex, Input } from '@chakra-ui/react'
 import { navigate } from '@reach/router'
 import React from 'react'
 import { useForm } from 'react-hook-form'
+import { FaSearch } from 'react-icons/fa'
 
-const DocInputForm = (props: any) => {
-  const { isLoading } = props
+interface DocInputFormProps {
+  mb?: number
+  isLoading?: boolean
+  onToggle: any
+}
+
+const DocInputForm: React.SFC<DocInputFormProps> = ({
+  mb = 0,
+  isLoading,
+  onToggle,
+}) => {
   const { handleSubmit, register, errors } = useForm()
   const onSubmit = (values: any) => navigate(`/document/${values.docId}`)
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <Flex alignItems="center" mb={6} wrap="wrap">
-        <Input
-          size="lg"
-          name="docId"
-          ref={register()}
-          width={630}
-          mr={3}
-          mb={3}
-        />
-        {errors.docId && errors.docId.message}
-        <Button
-          type="submit"
-          disabled={isLoading}
-          mb={3}
-          size="lg"
-          color="white"
-          bgGradient="linear(to-r, gray.600, gray.500)"
-          _hover={{
-            bgColor: 'rgb(255, 153, 103)',
-          }}
-        >
-          {isLoading ? 'Loading…' : 'Get Document'}
-        </Button>
-      </Flex>
-    </form>
+    <Box>
+      <Center>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <Input
+            name="docId"
+            type="text"
+            ref={register()}
+            size="lg"
+            width="66ch"
+            mb={3}
+            placeholder="eg k3y52l7qbv1frxjdr9qpn9ldvbxb0jg4eig7wtjkdu6gk84vyazw9j4txf4o6d2io"
+          />
+          {errors.docId && errors.docId.message}
+          <Center>
+            <Flex alignItems="center" mb={mb} wrap="wrap">
+              <Button
+                type="submit"
+                disabled={isLoading}
+                color="white"
+                size="lg"
+                leftIcon={<FaSearch />}
+                bgGradient="linear(to-r, orange.500, orange.300)"
+                _hover={{
+                  bgColor: 'rgb(255, 153, 103)',
+                }}
+                mr={3}
+              >
+                {isLoading ? 'Loading…' : <>Look Up</>}
+              </Button>
+              <Button size="lg" onClick={onToggle} variant="outline">
+                Cancel
+              </Button>
+            </Flex>
+          </Center>
+        </form>
+      </Center>
+    </Box>
   )
 }
 

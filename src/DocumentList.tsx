@@ -1,24 +1,19 @@
 import {
   Box,
   Flex,
-  HStack,
   Link,
-  StackDivider,
   Table,
-  Thead,
   Tbody,
-  Text,
-  Tr,
-  Th,
   Td,
-  Skeleton,
+  Th,
+  Thead,
+  Tr,
 } from '@chakra-ui/react'
+import { Link as ReachLink, RouteComponentProps } from '@reach/router'
 import React, { useState } from 'react'
-import { RouteComponentProps } from '@reach/router'
-import { Link as ReachLink } from '@reach/router'
 import { useCollection } from 'react-firebase-hooks/firestore'
-import db from './firebase'
 import LoadingTableRows from './components/LoadingTableRows'
+import db from './firebase'
 import moment from 'moment'
 
 interface DocList {
