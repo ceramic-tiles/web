@@ -22,17 +22,18 @@ const DocInputForm: React.SFC<DocInputFormProps> = ({
     <Box>
       <Center>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <Input
-            name="docId"
-            type="text"
-            ref={register()}
-            size="lg"
-            width="66ch"
-            mb={3}
-            placeholder="eg k3y52l7qbv1frxjdr9qpn9ldvbxb0jg4eig7wtjkdu6gk84vyazw9j4txf4o6d2io"
-          />
+          <Box width={{ base: '550px', md: '70ch' }}>
+            <Input
+              name="docId"
+              type="text"
+              ref={register()}
+              size="lg"
+              mb={3}
+              placeholder="eg k3y52l7qbv1frxjdr9qpn9ldvbxb0jg4eig7wtjkdu6gk84vyazw9j4txf4o6d2io"
+            />
+          </Box>
           {errors.docId && errors.docId.message}
-          <Center>
+          <Center width="100%">
             <Flex alignItems="center" mb={mb} wrap="wrap">
               <Button
                 type="submit"
