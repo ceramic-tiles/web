@@ -1,28 +1,24 @@
 import {
   Box,
+  Button,
   Flex,
+  Heading,
   HStack,
   Link,
   StackDivider,
   Table,
-  Thead,
   Tbody,
-  Text,
-  Tr,
-  Th,
   Td,
-  Skeleton,
-  Button,
-  Heading,
+  Th,
+  Thead,
+  Tr,
 } from '@chakra-ui/react'
-import React, { useState } from 'react'
-import { RouteComponentProps } from '@reach/router'
-import { Link as ReachLink } from '@reach/router'
-import { useCollection } from 'react-firebase-hooks/firestore'
-import db from './firebase'
-import LoadingTableRows from './components/LoadingTableRows'
-import { usePagination } from 'use-pagination-firestore'
+import { Link as ReachLink, RouteComponentProps } from '@reach/router'
+import React from 'react'
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa'
+import { usePagination } from 'use-pagination-firestore'
+import LoadingTableRows from './components/LoadingTableRows'
+import db from './firebase'
 
 interface DocList {
   docs: [{ docId: string }]
