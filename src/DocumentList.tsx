@@ -72,17 +72,13 @@ const DocumentList = (props: DocListProps) => {
               const { id, timestamp } = doc.data()
               return (
                 <Tr key={id}>
-                  <Td maxWidth={{ base: '300px' }}>
-                    <Link
-                      as={ReachLink}
-                      to={`/document/${id}`}
-                      textDecoration="underline"
-                    >
-                      <Text isTruncated>{id}</Text>
+                  <Td>
+                    <Link as={ReachLink} to={`/document/${id}`} isTruncated color='orange.300'>
+                      {id}
                     </Link>
                   </Td>
                   <Td>
-                    {moment(timestamp).format("h:mm:ssA, MMM D 'YY") || '—'}
+                    {moment(timestamp).format('h:mm:ssA, MMMM Do YYYY') || '—'}
                   </Td>
                 </Tr>
               )
