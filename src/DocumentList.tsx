@@ -5,6 +5,7 @@ import {
   Table,
   Tbody,
   Td,
+  Text,
   Th,
   Thead,
   Tr,
@@ -47,13 +48,7 @@ const DocumentList = (props: DocListProps) => {
   if (error) return <strong>Error: {JSON.stringify(error)}</strong>
 
   return (
-    <Flex
-      justifyContent="space-between"
-      flexDir="column"
-      alignItems="center"
-      px={6}
-      py={6}
-    >
+    <Box px={{ base: 0, md: 6 }}>
       {/* <HStack fontSize="sm" divider={<StackDivider />}>
         <Text onClick={handlePrev}>
           <Link href="#">Prev</Link>
@@ -77,18 +72,17 @@ const DocumentList = (props: DocListProps) => {
               const { id, timestamp } = doc.data()
               return (
                 <Tr key={id}>
-                  <Td>
+                  <Td maxWidth={{ base: '300px' }}>
                     <Link
                       as={ReachLink}
                       to={`/document/${id}`}
-                      isTruncated
                       textDecoration="underline"
                     >
-                      {id}
+                      <Text isTruncated>{id}</Text>
                     </Link>
                   </Td>
                   <Td>
-                    {moment(timestamp).format('h:mm:ssA, MMMM Do YYYY') || '—'}
+                    {moment(timestamp).format("h:mm:ssA, MMM D 'YY") || '—'}
                   </Td>
                 </Tr>
               )
@@ -96,7 +90,7 @@ const DocumentList = (props: DocListProps) => {
           </Tbody>
         </Table>
       </Box>
-    </Flex>
+    </Box>
   )
 }
 
