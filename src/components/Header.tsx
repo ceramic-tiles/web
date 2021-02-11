@@ -3,19 +3,16 @@ import {
   Button,
   Flex,
   Heading,
-  HStack,
   Link,
-  Slide,
   SlideFade,
-  Stack,
   useDisclosure,
 } from '@chakra-ui/react'
 import React from 'react'
-import ColorModeSwitcher from './ColorModeSwitcher'
+import { FaSearch } from 'react-icons/fa'
 import { GiAllSeeingEye } from 'react-icons/gi'
+import ColorModeSwitcher from './ColorModeSwitcher'
 import DocInputForm from './DocInputForm'
 import SampleDocuments from './SampleDocuments'
-import { FaSearch } from 'react-icons/fa'
 
 const Header = () => {
   const { isOpen, onToggle } = useDisclosure()

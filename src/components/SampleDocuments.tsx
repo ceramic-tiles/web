@@ -1,19 +1,15 @@
 import {
-  useDisclosure,
   Box,
-  Text,
-  Flex,
-  Heading,
-  Divider,
   Button,
-  Stack,
   Modal,
-  ModalOverlay,
+  ModalBody,
+  ModalCloseButton,
   ModalContent,
   ModalHeader,
-  ModalCloseButton,
-  ModalBody,
-  ModalFooter,
+  ModalOverlay,
+  Stack,
+  Text,
+  useDisclosure,
 } from '@chakra-ui/react'
 import { navigate } from '@reach/router'
 import * as React from 'react'
