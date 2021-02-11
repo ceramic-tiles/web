@@ -12,6 +12,8 @@ import {
   Th,
   Td,
   Skeleton,
+  Button,
+  Heading,
 } from '@chakra-ui/react'
 import React, { useState } from 'react'
 import { RouteComponentProps } from '@reach/router'
@@ -19,6 +21,8 @@ import { Link as ReachLink } from '@reach/router'
 import { useCollection } from 'react-firebase-hooks/firestore'
 import db from './firebase'
 import LoadingTableRows from './components/LoadingTableRows'
+import { usePagination } from 'use-pagination-firestore'
+import { FaChevronLeft, FaChevronRight } from 'react-icons/fa'
 
 interface DocList {
   docs: [{ docId: string }]
@@ -27,46 +31,40 @@ interface DocList {
 interface DocListProps extends RouteComponentProps {}
 
 const DocumentList = (props: DocListProps) => {
-  // const [paginateLimit, setpaginateLimit] = useState(15);
-  const paginateLimit = 15
-  const [paginatePage, setpaginatePage] = useState(0)
+  const {
+    items,
+    isLoading: loading,
+    isStart,
+    isEnd,
+    getPrev,
+    getNext,
+  } = usePagination(db.collection('documents').orderBy('timestamp'), {
+    limit: 20,
+  })
 
-  const [value, loading, error] = useCollection(
-    db.collection('documents').orderBy('timestamp')
-  )
-
-  // const dataTop = docData.docs.slice(
-  //   paginateLimit * paginatePage,
-  //   paginateLimit * paginatePage + paginateLimit
-  // )
-
-  const handlePrev = () => {
-    if (paginatePage > 0) setpaginatePage(paginatePage - 1)
-  }
-
-  const handleNext = () => {
-    setpaginatePage(paginatePage + 1)
-  }
-
-  if (error) return <strong>Error: {JSON.stringify(error)}</strong>
+  // if (error) return <strong>Error: {JSON.stringify(error)}</strong>
 
   return (
-    <Flex
-      justifyContent="space-between"
-      flexDir="column"
-      alignItems="center"
-      px={6}
-      py={6}
-    >
-      {/* <HStack fontSize="sm" divider={<StackDivider />}>
-        <Text onClick={handlePrev}>
-          <Link href="#">Prev</Link>
-        </Text>
-        <Text mx={4}>Page {paginatePage + 1}</Text>
-        <Text onClick={handleNext}>
-          <Link href="#">Next</Link>
-        </Text>
-      </HStack> */}
+    <Box p={6}>
+      <Flex alignItems="center" justifyContent="space-between" m={6}>
+        <Heading size="md">All Documents</Heading>
+        <HStack fontSize="sm" divider={<StackDivider />}>
+          <Button
+            onClick={getPrev}
+            disabled={isStart}
+            leftIcon={<FaChevronLeft />}
+          >
+            Prev
+          </Button>
+          <Button
+            onClick={getNext}
+            disabled={isEnd}
+            rightIcon={<FaChevronRight />}
+          >
+            Next
+          </Button>
+        </HStack>
+      </Flex>
       <Box width="100%">
         <Table>
           <Thead>
@@ -76,24 +74,27 @@ const DocumentList = (props: DocListProps) => {
             </Tr>
           </Thead>
           <Tbody>
-            {loading && <LoadingTableRows />}
-            {value?.docs.map((doc: any) => {
-              const { id, timestamp } = doc.data()
-              return (
-                <Tr key={id}>
-                  <Td>
-                    <Link as={ReachLink} to={`/document/${id}`}>
-                      {id}
-                    </Link>
-                  </Td>
-                  <Td>{timestamp || '—'}</Td>
-                </Tr>
-              )
-            })}
+            {loading ? (
+              <LoadingTableRows />
+            ) : (
+              items?.map((item: any) => {
+                const { id, timestamp } = item
+                return (
+                  <Tr key={id}>
+                    <Td>
+                      <Link as={ReachLink} to={`/document/${id}`}>
+                        {id}
+                      </Link>
+                    </Td>
+                    <Td>{timestamp || '—'}</Td>
+                  </Tr>
+                )
+              })
+            )}
           </Tbody>
         </Table>
       </Box>
-    </Flex>
+    </Box>
   )
 }
 
