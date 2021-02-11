@@ -144,7 +144,7 @@ const Document = (props: DocProps) => {
                 ) : (
                   <>
                     {isLoading ? (
-                      <Skeleton height="20px" width={400} />
+                      <Skeleton height="20px" width="100%" />
                     ) : (
                       <Text>Get a document to see its metadata</Text>
                     )}

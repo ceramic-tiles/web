@@ -11,35 +11,44 @@ import {
   Tr,
   Th,
   Td,
+  Skeleton,
 } from '@chakra-ui/react'
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import { RouteComponentProps } from '@reach/router'
-import { Link as ReachLink } from "@reach/router"
-
-const docData: DocList = require('./data/dummyDocs.json')
+import { Link as ReachLink } from '@reach/router'
+import { useCollection } from 'react-firebase-hooks/firestore'
+import db from './firebase'
+import LoadingTableRows from './components/LoadingTableRows'
 
 interface DocList {
-  docs: [{docId: string}]
+  docs: [{ docId: string }]
 }
 
-interface DocListProps extends RouteComponentProps {
-}
+interface DocListProps extends RouteComponentProps {}
 
 const DocumentList = (props: DocListProps) => {
   // const [paginateLimit, setpaginateLimit] = useState(15);
-  const paginateLimit = 15;
-  const [paginatePage, setpaginatePage] = useState(0);
+  const paginateLimit = 15
+  const [paginatePage, setpaginatePage] = useState(0)
 
-  const dataTop = docData.docs.slice(paginateLimit * paginatePage, (paginateLimit * paginatePage) + paginateLimit)
+  const [value, loading, error] = useCollection(
+    db.collection('documents').orderBy('timestamp')
+  )
+
+  // const dataTop = docData.docs.slice(
+  //   paginateLimit * paginatePage,
+  //   paginateLimit * paginatePage + paginateLimit
+  // )
 
   const handlePrev = () => {
-    if (paginatePage > 0)
-      setpaginatePage(paginatePage - 1);
+    if (paginatePage > 0) setpaginatePage(paginatePage - 1)
   }
 
   const handleNext = () => {
-    setpaginatePage(paginatePage + 1);
+    setpaginatePage(paginatePage + 1)
   }
+
+  if (error) return <strong>Error: {JSON.stringify(error)}</strong>
 
   return (
     <Flex
@@ -48,19 +57,17 @@ const DocumentList = (props: DocListProps) => {
       alignItems="center"
       px={6}
       py={6}
-    > 
-      <HStack fontSize="sm" divider={<StackDivider />}>
+    >
+      {/* <HStack fontSize="sm" divider={<StackDivider />}>
         <Text onClick={handlePrev}>
           <Link href="#">Prev</Link>
         </Text>
-        <Text mx={4} >
-          Page {paginatePage+1}
-        </Text>
+        <Text mx={4}>Page {paginatePage + 1}</Text>
         <Text onClick={handleNext}>
           <Link href="#">Next</Link>
         </Text>
-      </HStack>
-      <Box>
+      </HStack> */}
+      <Box width="100%">
         <Table>
           <Thead>
             <Tr>
@@ -69,17 +76,20 @@ const DocumentList = (props: DocListProps) => {
             </Tr>
           </Thead>
           <Tbody>
-            { dataTop.map (doc => {
+            {loading && <LoadingTableRows />}
+            {value?.docs.map((doc: any) => {
+              const { id, timestamp } = doc.data()
               return (
-              <Tr>
-                <Td>
-                  <Link as={ReachLink} to={`/document/${doc.docId}`}>
-                    {doc.docId}
-                  </Link>
-                </Td>
-                <Td>-</Td>
-              </Tr>
-            )})}
+                <Tr key={id}>
+                  <Td>
+                    <Link as={ReachLink} to={`/document/${id}`}>
+                      {id}
+                    </Link>
+                  </Td>
+                  <Td>{timestamp || '—'}</Td>
+                </Tr>
+              )
+            })}
           </Tbody>
         </Table>
       </Box>
