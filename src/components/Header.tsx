@@ -42,6 +42,13 @@ const Header = () => {
               leftIcon={<FaSearch />}
               onClick={onToggle}
               bgGradient="linear(to-r, gray.600, gray.500)"
+              _hover={{
+                // color: 'black',
+                bgGradient: 'linear(to-r, gray.500, gray.400)',
+              }}
+              _active={{
+                bgGradient: 'linear(to-r, gray.400, gray.300)',
+              }}
               color="white"
             >
               Look Up Doc

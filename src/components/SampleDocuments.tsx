@@ -28,7 +28,7 @@ const SampleDocuments = () => {
           <ModalHeader>Example Docs</ModalHeader>
           <ModalCloseButton />
           <ModalBody mb={3}>
-            <Stack direction={{ base: 'column', lg: 'row' }} spacing="3">
+            <Stack spacing="3">
               <Box
                 p={3}
                 borderRadius={5}
