@@ -83,7 +83,7 @@ const DocumentList = (props: DocListProps) => {
               return (
                 <Tr key={id}>
                   <Td>
-                    <Link as={ReachLink} to={`/document/${id}`} isTruncated color='orange.300'>
+                    <Link as={ReachLink} to={`/document/${id}`} isTruncated color='orange.500'>
                       {id}
                     </Link>
                   </Td>
