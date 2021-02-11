@@ -19,6 +19,7 @@ import { FaChevronLeft, FaChevronRight } from 'react-icons/fa'
 import { usePagination } from 'use-pagination-firestore'
 import LoadingTableRows from './components/LoadingTableRows'
 import db from './firebase'
+import moment from 'moment'
 
 interface DocList {
   docs: [{ docId: string }]
@@ -34,7 +35,7 @@ const DocumentList = (props: DocListProps) => {
     isEnd,
     getPrev,
     getNext,
-  } = usePagination(db.collection('documents').orderBy('timestamp'), {
+  } = usePagination(db.collection('documents').orderBy('timestamp', 'desc'), {
     limit: 20,
   })
 
@@ -82,7 +83,9 @@ const DocumentList = (props: DocListProps) => {
                         {id}
                       </Link>
                     </Td>
-                    <Td>{timestamp || '—'}</Td>
+                    <Td>
+                      {moment(timestamp).format("h:mm:ssA, MMM D 'YY") || '—'}
+                    </Td>
                   </Tr>
                 )
               })
