@@ -21,7 +21,7 @@ const Footer = () => {
           oaksprout
         </Link>{' '}
         &{' '}
-        <Link textDecoration="underline" href="https://twitter.com/isidorosp">
+        <Link textDecoration="underline" href="https://github.com/isidorosp">
           isidorosp
         </Link>{' '}
         in support of{' '}
