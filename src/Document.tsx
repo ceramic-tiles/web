@@ -10,9 +10,7 @@ import {
   useColorMode,
 } from '@chakra-ui/react'
 import { RouteComponentProps } from '@reach/router'
-import * as React from 'react'
-import { useState } from 'react'
-import { useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import useDoc from './hooks/useDoc'
 
 interface DocProps extends RouteComponentProps {
@@ -23,18 +21,13 @@ const Document = (props: DocProps) => {
   const { docId } = props
   const [docContent, setDocContent] = useState<Object>();
 
-  // const doc: any = {};
   const { isLoading, error, data: doc } = useDoc(docId)
+
   useEffect(() => {
-    // Update the document title using the browser API
     const updateContent = doc?.state?.content || doc?.state?.next?.content || undefined;
-    // console.log(testContent)
     setDocContent(updateContent)
   }, [doc]);
 
-  // const docCommits: any = {};
-  // ({ isLoading: docCommits.isLoading, error: docCommits.error, data: docCommits.data } = useDocCommits(docId))
-  
   const { colorMode } = useColorMode()
 
   const formatAnchorStatus = (anchorStatus: number) => {
@@ -125,6 +118,7 @@ const Document = (props: DocProps) => {
                     {doc?.state?.doctype}
                   </Text>
               </Box>
+              <Divider my={5} />
               <Box>
                 <Heading mb={3} size="md">
                   Anchoring
@@ -134,8 +128,8 @@ const Document = (props: DocProps) => {
                     Status
                   </Text>
                   <Text>
-                    {doc?.state?.anchorStatus &&
-                      formatAnchorStatus(doc?.state?.anchorStatus)}
+                    {doc?.state &&
+                      formatAnchorStatus(doc!.state.anchorStatus)}
                   </Text>
                 </Box>
                 <Box mb={3}>
@@ -177,6 +171,7 @@ const Document = (props: DocProps) => {
                   </>
                 )}
               </Box>
+              <Divider my={5} />
               <Box>
                 <Heading mb={3} size="md">
                   Document History
@@ -185,7 +180,7 @@ const Document = (props: DocProps) => {
                   (doc?.state?.log).reverse().map((commit, i) => (
                     <Box mb={3} fontSize="sm">
                       <Text mb={3}>
-                        {commit.cid.toString()} { (i === 0) && '(current)'}
+                        {commit.cid.toString()} { (i === 0) && '(latest)'}
                       </Text>
                     </Box>
                   ))
