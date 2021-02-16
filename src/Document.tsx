@@ -10,7 +10,7 @@ import {
   useColorMode,
 } from '@chakra-ui/react'
 import { RouteComponentProps } from '@reach/router'
-import * as React from 'react'
+import React, { useState, useEffect } from 'react'
 import useDoc from './hooks/useDoc'
 
 interface DocProps extends RouteComponentProps {
@@ -19,7 +19,15 @@ interface DocProps extends RouteComponentProps {
 
 const Document = (props: DocProps) => {
   const { docId } = props
+  const [docContent, setDocContent] = useState<Object>();
+
   const { isLoading, error, data: doc } = useDoc(docId)
+
+  useEffect(() => {
+    const updateContent = doc?.state?.content || doc?.state?.next?.content || undefined;
+    setDocContent(updateContent)
+  }, [doc]);
+
   const { colorMode } = useColorMode()
 
   const formatAnchorStatus = (anchorStatus: number) => {
@@ -58,47 +66,59 @@ const Document = (props: DocProps) => {
                 <Heading size="md" mb={3}>
                   Content
                 </Heading>
-                {doc?.state?.content ? (
-                  Object.entries(doc?.state?.content).map((entry: any[]) => (
-                    <Box mb={3}>
-                      <Text mb={1} fontWeight="bold">
-                        {entry[0] && entry[0].toString()}
-                      </Text>
-                      {typeof entry[1] === 'string' ? (
-                        <Text>{entry[1]}</Text>
-                      ) : (
-                        <Box
-                          backgroundColor={
-                            colorMode === 'dark' ? 'gray.900' : 'gray.100'
-                          }
-                          p={3}
-                          borderRadius={5}
-                        >
-                          <Code
-                            fontSize="sm"
-                            background="transparent"
-                            overflowX="auto"
-                            whiteSpace="pre"
-                            display="block"
+                {(docContent !== undefined) ? (
+                  (doc?.state.doctype === 'tile' &&
+                    Object.entries(docContent!).map((entry: any[]) => (
+                      <Box mb={3}>
+                        <Text mb={1} fontWeight="bold">
+                          {entry[0] && entry[0].toString()}
+                        </Text>
+                        {typeof entry[1] === 'string' ? (
+                          <Text>{entry[1]}</Text>
+                        ) : (
+                          <Box
+                            backgroundColor={
+                              colorMode === 'dark' ? 'gray.900' : 'gray.100'
+                            }
+                            p={3}
+                            borderRadius={5}
                           >
-                            {JSON.stringify(entry[1], undefined, 2)}
-                          </Code>
-                        </Box>
-                      )}
-                    </Box>
-                  ))
+                            <Code
+                              fontSize="sm"
+                              background="transparent"
+                              overflowX="auto"
+                              whiteSpace="pre"
+                              display="block"
+                            >
+                              {JSON.stringify(entry[1], undefined, 2)}
+                            </Code>
+                          </Box>
+                        )}
+                      </Box>
+                    )))
+                  || (doc?.state.doctype === 'caip10-link' &&
+                    <Text>{docContent.toString()}</Text>)
                 ) : (
-                  <>
+                  <Text>
                     {isLoading ? (
                       <Skeleton height="20px" width={400} />
                     ) : (
                       <Text>Get a document to see its content</Text>
                     )}
-                  </>
+                  </Text>
                 )}
               </Box>
             </GridItem>
             <GridItem colSpan={2}>
+              <Box>
+                <Heading mb={3} size="md">
+                  Doc Type
+                </Heading>
+                  <Text mb={3}>
+                    {doc?.state?.doctype}
+                  </Text>
+              </Box>
+              <Divider my={5} />
               <Box>
                 <Heading mb={3} size="md">
                   Anchoring
@@ -108,8 +128,8 @@ const Document = (props: DocProps) => {
                     Status
                   </Text>
                   <Text>
-                    {doc?.state?.anchorStatus &&
-                      formatAnchorStatus(doc?.state?.anchorStatus)}
+                    {doc?.state &&
+                      formatAnchorStatus(doc!.state.anchorStatus)}
                   </Text>
                 </Box>
                 <Box mb={3}>
@@ -151,27 +171,33 @@ const Document = (props: DocProps) => {
                   </>
                 )}
               </Box>
+              <Divider my={5} />
+              <Box>
+                <Heading mb={3} size="md">
+                  Document History
+                </Heading>
+                {doc?.state?.log ? (
+                  (doc?.state?.log).reverse().map((commit, i) => (
+                    <Box mb={3} fontSize="sm">
+                      <Text mb={3}>
+                        {commit.cid.toString()} { (i === 0) && '(latest)'}
+                      </Text>
+                    </Box>
+                  ))
+                ) : (
+                  <>
+                    {isLoading ? (
+                      <Skeleton height="20px" width="100%" />
+                    ) : (
+                      <Text>Get a document to see its log</Text>
+                    )}
+                  </>
+                )}
+              </Box>
             </GridItem>
           </Grid>
         </>
       )}
-      {/* {doc && (
-          <Flex mb={6} alignItems="center">
-            <Text mr={3}>Version</Text>
-            <Select
-              onChange={(e: any) => {
-                navigate(`/document/${e.target.value}`)
-              }}
-              width={200}
-            >
-              {doc?.allCommitIds?.map((commitId: any, i: number) => (
-                <option key={i} value={commitId}>
-                  Version {i + 1}
-                </option>
-              ))}
-            </Select>
-          </Flex>
-        )} */}
     </Box>
   )
 }
