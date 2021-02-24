@@ -7,28 +7,50 @@ import {
   Heading,
   Skeleton,
   Text,
+  Link,
+  Spinner,
   useColorMode,
 } from '@chakra-ui/react'
 import { RouteComponentProps } from '@reach/router'
 import React, { useState, useEffect } from 'react'
 import useDoc from './hooks/useDoc'
+import useCommit from './hooks/useCommit'
 
 interface DocProps extends RouteComponentProps {
   docId?: string
+  commitId?: string
 }
 
 const Document = (props: DocProps) => {
   const { docId } = props
-  const [docContent, setDocContent] = useState<Object>();
+  const [commitId, setCommitId] = useState(props.commitId)
 
-  const { isLoading, error, data: doc } = useDoc(docId)
+  const [docContent, setDocContent] = useState<Object>()
+
+  const { isLoading: initialDocIsLoading, error: intialDocerror, data: doc } = useDoc(docId!)
+
+  const { isLoading: commitIsLoading, error: commitError, data: commitDoc } = useCommit(docId!, commitId!)
+
+  const isLoading = initialDocIsLoading || commitIsLoading || false
+  const error = intialDocerror || commitError
 
   useEffect(() => {
+    // TODO: Clean this up, currently we're loading the initial document twice and this shouldn't be necessary
+    // on the initial render/load
     const updateContent = doc?.state?.content || doc?.state?.next?.content || undefined;
-    setDocContent(updateContent)
-  }, [doc]);
+    if (commitId && commitDoc && doc !== commitDoc) {
+      setDocContent(commitDoc.state.content)
+    } else {
+      setDocContent(updateContent)
+    }
+  }, [doc, commitId, commitDoc]);
 
   const { colorMode } = useColorMode()
+
+  const handleChangeCommit = (commitID: string) => {
+    if (commitId !== commitID)
+      setCommitId(commitID)
+  }
 
   const formatAnchorStatus = (anchorStatus: number) => {
     switch (anchorStatus) {
@@ -60,16 +82,32 @@ const Document = (props: DocProps) => {
             <Heading size="md">{docId}</Heading>
           </Box>
           <Divider my={6} />
-          <Grid templateColumns="repeat(6, 1fr)" gap={6}>
-            <GridItem colSpan={4}>
+          <Grid templateColumns={['repeat(1, 1fr)', 'repeat(1, 1fr)', 'repeat(6, 1fr)']} gap={6}>
+            <GridItem colSpan={4} position="relative" >
+              { isLoading && (
+              <Box
+                position="absolute"
+                display="flex"
+                justifyContent="center"
+                alignItems="center"
+                backgroundColor={
+                  colorMode === 'dark' ? 'gray.800' : 'gray.200'
+                }
+                opacity="0.5"
+                height="100%"
+                width="100%"
+              >
+                <Spinner size="xl" />
+              </Box>
+              )}
               <Box mb={6}>
                 <Heading size="md" mb={3}>
                   Content
                 </Heading>
                 {(docContent !== undefined) ? (
                   (doc?.state.doctype === 'tile' &&
-                    Object.entries(docContent!).map((entry: any[]) => (
-                      <Box mb={3}>
+                    Object.entries(docContent!).map((entry: any[], i) => (
+                      <Box key={i} mb={3}>
                         <Text mb={1} fontWeight="bold">
                           {entry[0] && entry[0].toString()}
                         </Text>
@@ -99,13 +137,13 @@ const Document = (props: DocProps) => {
                   || (doc?.state.doctype === 'caip10-link' &&
                     <Text>{docContent.toString()}</Text>)
                 ) : (
-                  <Text>
+                  <Box>
                     {isLoading ? (
                       <Skeleton height="20px" width={400} />
                     ) : (
                       <Text>Get a document to see its content</Text>
                     )}
-                  </Text>
+                  </Box>
                 )}
               </Box>
             </GridItem>
@@ -151,8 +189,8 @@ const Document = (props: DocProps) => {
                   Metadata
                 </Heading>
                 {doc?.state?.metadata ? (
-                  Object.entries(doc?.state?.metadata).map((entry: any[]) => (
-                    <Box mb={3}>
+                  Object.entries(doc?.state?.metadata).map((entry: any[], i) => (
+                    <Box key={i} mb={3}>
                       <Text fontWeight="bold" mb={3}>
                         {entry[0] && entry[0].toString()}
                       </Text>
@@ -176,23 +214,25 @@ const Document = (props: DocProps) => {
                 <Heading mb={3} size="md">
                   Document History
                 </Heading>
-                {doc?.state?.log ? (
-                  (doc?.state?.log).reverse().map((commit, i) => (
-                    <Box mb={3} fontSize="sm">
-                      <Text mb={3}>
-                        {commit.cid.toString()} { (i === 0) && '(latest)'}
-                      </Text>
-                    </Box>
-                  ))
-                ) : (
-                  <>
-                    {isLoading ? (
-                      <Skeleton height="20px" width="100%" />
-                    ) : (
-                      <Text>Get a document to see its log</Text>
-                    )}
-                  </>
-                )}
+                <Box height="250px" overflowY="scroll">
+                  {doc?.state?.log ? (
+                    (doc?.state?.log).reverse().map((commit, i) => (
+                      <Box key={i} mb={3} fontSize="sm">
+                        <Link onClick={ () => handleChangeCommit(commit.cid.toString()) } mb={3}>
+                          {((commit.cid.toString() === commitId) || (!commitId && i === 0)) && '[X]'} {commit.cid.toString()} { (i === 0) && '(latest)'}
+                        </Link>
+                      </Box>
+                    ))
+                  ) : (
+                    <>
+                      {isLoading ? (
+                        <Skeleton height="20px" width="100%" />
+                      ) : (
+                        <Text>Get a document to see its log</Text>
+                      )}
+                    </>
+                  )}
+                </Box>
               </Box>
             </GridItem>
           </Grid>
