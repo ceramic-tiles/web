@@ -82,10 +82,21 @@ const Document = (props: DocProps) => {
             <Heading size="md">{docId}</Heading>
           </Box>
           <Divider my={6} />
-          <Grid templateColumns="repeat(6, 1fr)" gap={6}>
+          <Grid templateColumns={['repeat(1, 1fr)', 'repeat(1, 1fr)', 'repeat(6, 1fr)']} gap={6}>
             <GridItem colSpan={4} position="relative" >
               { isLoading && (
-              <Box position="absolute" display="flex" justifyContent="center" alignItems="center" background="gray.800" opacity="0.8" height="100%" width="100%">
+              <Box
+                position="absolute"
+                display="flex"
+                justifyContent="center"
+                alignItems="center"
+                backgroundColor={
+                  colorMode === 'dark' ? 'gray.800' : 'gray.200'
+                }
+                opacity="0.5"
+                height="100%"
+                width="100%"
+              >
                 <Spinner size="xl" />
               </Box>
               )}
