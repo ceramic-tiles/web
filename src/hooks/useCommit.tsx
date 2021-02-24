@@ -4,7 +4,6 @@ import { ceramic } from '../App'
 
 const getCommitById = async (docId: DocID) => {
   const doc = await ceramic.loadDocument(docId).then((res) => res)
-  // console.log(doc)
   return doc
 }
 
