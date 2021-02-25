@@ -10,9 +10,6 @@ import {
   Stack,
   Text,
   useDisclosure,
-  Flex,
-  Heading,
-  Divider,
 } from '@chakra-ui/react'
 import { navigate } from '@reach/router'
 import * as React from 'react'
@@ -22,7 +19,7 @@ const SampleDocuments = () => {
 
   return (
     <>
-      <Button onClick={onOpen} variant="outline">
+      <Button boxShadow="base" borderColor="#d8a658" onClick={onOpen} variant="outline">
         Example Docs
       </Button>
       <Modal isOpen={isOpen} onClose={onClose}>

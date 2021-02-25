@@ -14,6 +14,8 @@ const ColorModeSwitcher = (props: any) => {
       variant="outline"
       color="current"
       marginLeft="2"
+      boxShadow="base"
+      borderColor="#d8a658"
       onClick={toggleColorMode}
       icon={<SwitchIcon />}
       aria-label={`Switch to ${text} mode`}

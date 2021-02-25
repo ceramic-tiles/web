@@ -1,0 +1,33 @@
+<svg id="e7ddzjgbdew61" xmlns="http://www.w3.org/2000/svg" viewBox="780.591 -36.216 470.647 384.106" shape-rendering="geometricPrecision" text-rendering="geometricPrecision">
+  <style>
+    @keyframes e7ddzjgbdew617_to__to{
+        0%{transform:translate(22.7196px,8.40901px)}
+        2%{transform:translate(22.7196px,8.40901px);
+        animation-timing-function:cubic-bezier(.6,-.28,.735,.045)}
+        30%{transform:translate(59.7196px,8.4895px);
+        animation-timing-function:cubic-bezier(.6,-.28,.735,.045)}
+        69.4%{transform:translate(-18.1644px,8.4895px);
+        animation-timing-function:cubic-bezier(.6,-.28,.735,.045)}
+        99.2%,to{transform:translate(23.1061px,8.4895px)}
+      }
+  </style>
+  <path id="e7ddzjgbdew62" d="M780.59 155.837l53.259-33.285 53.254 33.285-53.254 33.285-53.258-33.285z" fill="#fff" stroke="#FFF" stroke-width="0"/>
+  <path id="e7ddzjgbdew63" d="M785.248 115.895l53.258-33.285 53.254 33.285-53.254 33.285-53.258-33.285z" fill="#fff" stroke="#FFF" stroke-width="0"/>
+  <path id="e7ddzjgbdew64" d="M845.16 75.953l53.259-33.285 53.254 33.285-53.254 33.285-53.258-33.285z" fill="#fff" stroke="#FFF" stroke-width="0"/>
+  <path id="e7ddzjgbdew65" d="M905.074 36.011l53.258-33.285 53.254 33.285-53.254 33.285-53.258-33.285z" fill="#fff" stroke="#FFF" stroke-width="0"/>
+  <path id="e7ddzjgbdew66" d="M1024.9 36.011l53.258-33.285 53.254 33.285-53.254 33.285-53.258-33.285z" fill="#fff" stroke="#FFF" stroke-width="0"/>
+  <path id="e7ddzjgbdew67" d="M1084.813 75.953l53.258-33.285 53.254 33.285-53.254 33.285-53.258-33.285z" fill="#fff" stroke="#FFF" stroke-width="0"/>
+  <path id="e7ddzjgbdew68" d="M1144.726 115.895l53.258-33.285 53.254 33.285-53.254 33.285-53.258-33.285z" fill="#fff" stroke="#FFF" stroke-width="0"/>
+  <path id="e7ddzjgbdew69" d="M1144.726 155.837l53.258-33.285 53.254 33.285-53.254 33.285-53.258-33.285z" fill="#fff" stroke="#FFF" stroke-width="0"/>
+  <path id="e7ddzjgbdew610" d="M1144.726 195.779l53.258-33.285 53.254 33.285-53.254 33.285-53.258-33.285z" fill="#fff" stroke="#FFF" stroke-width="0"/>
+  <path id="e7ddzjgbdew611" d="M1084.813 235.721l53.258-33.285 53.254 33.285-53.254 33.285-53.258-33.285z" fill="#fff" stroke="#FFF" stroke-width="0"/>
+  <path id="e7ddzjgbdew612" d="M1024.9 275.663l53.258-33.285 53.254 33.285-53.254 33.285-53.258-33.285z" fill="#fff" stroke="#FFF" stroke-width="0"/>
+  <path id="e7ddzjgbdew613" d="M964.987 314.605l53.258-33.285 53.254 33.285-53.254 33.285-53.258-33.285z" fill="#fff" stroke="#FFF" stroke-width="0"/>
+  <path id="e7ddzjgbdew614" d="M905.074 275.663l53.258-33.285 53.254 33.285-53.254 33.285-53.258-33.285z" fill="#fff" stroke="#FFF" stroke-width="0"/>
+  <path id="e7ddzjgbdew615" d="M845.16 235.721l53.259-33.285 53.254 33.285-53.254 33.285-53.258-33.285z" fill="#fff" stroke="#FFF" stroke-width="0"/>
+  <path id="e7ddzjgbdew616" d="M785.248 195.779l53.258-33.285 53.254 33.285-53.254 33.285-53.258-33.285z" fill="#fff" stroke="#FFF" stroke-width="0"/>
+  <g transform="translate(22.72 8.409)" style="animation:e7ddzjgbdew617_to__to 5000ms linear 1 normal forwards">
+    <path id="e7ddzjgbdew617" d="M905.267 147.348l89.874-64.49 89.865 64.49-89.865 64.489-89.874-64.489z" fill="#fff" stroke="#FFF" stroke-width="0"/>
+  </g>
+  <path id="e7ddzjgbdew618" d="M964.987-2.931l53.258-33.285 53.254 33.285-53.254 33.285-53.258-33.285z" fill="#fff" stroke="#FFF" stroke-width="0"/>
+</svg>
