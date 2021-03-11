@@ -45,7 +45,7 @@ const Document = (props: DocProps) => {
               <option value={1}>Super Advanced</option>
               <option value={2}>System</option>
             </Select>
-            <ChakraLink as={Link} to={`/lens-market/${doc?.state?.metadata?.schema?.substring(10)}`} textDecoration="underline">Lens Market</ChakraLink>
+            <ChakraLink as={Link} to={`/lens-market/${doc?.state?.metadata?.schema?.substring(10)}`} textDecoration="underline">Lens Markett</ChakraLink>
           </Flex>
         </Flex>
         <Divider my={6} />
