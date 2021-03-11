@@ -13,29 +13,39 @@ import { GiAllSeeingEye } from 'react-icons/gi'
 import ColorModeSwitcher from './ColorModeSwitcher'
 import DocInputForm from './DocInputForm'
 import SampleDocuments from './SampleDocuments'
+import { Link as ReachLink } from '@reach/router'
+
 
 const Header = () => {
   const { isOpen, onToggle } = useDisclosure()
   return (
     <Box borderBottomWidth={1}>
       <Flex justifyContent="space-between" alignItems="center" px={6} my={6}>
-        <Link href="/" _hover={{ textDecoration: 'none' }}>
-          <Flex
-            justifyContent="space-between"
-            alignItems="center"
-            p={2}
-            borderRadius={10}
-            color="white"
-            bgGradient="linear(to-r, orange.500, orange.300)"
-          >
-            <Box mr={2}>
-              <GiAllSeeingEye color="orange.500" size="40" />
-            </Box>
-            <Heading as="h1" size="lg" letterSpacing="-1px">
-              Tiles
+        <Box>
+          <Flex alignItems="center">
+            <Link href="/" _hover={{ textDecoration: 'none' }} mr={6}>
+              <Flex
+                justifyContent="space-between"
+                alignItems="center"
+                p={2}
+                borderRadius={10}
+                color="white"
+                bgGradient="linear(to-r, orange.500, orange.300)"
+              >
+                <Box mr={2}>
+                  <GiAllSeeingEye color="orange.500" size="40" />
+                </Box>
+                <Heading as="h1" size="lg" letterSpacing="-1px">
+                  Tiles
             </Heading>
+              </Flex>
+            </Link>
+            <Box mr={3}>
+              <ReachLink to="/documents">Documents</ReachLink>
+            </Box>
+            <ReachLink to="/lens-markets">Lens Markets</ReachLink>
           </Flex>
-        </Link>
+        </Box>
         <Flex>
           <Box display={isOpen ? 'none' : 'inherit'} mr={3}>
             <Button

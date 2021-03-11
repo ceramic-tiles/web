@@ -6,6 +6,8 @@ import * as React from 'react'
 import Header from './components/Header'
 import Footer from './components/Footer'
 import Document from './Document'
+import Lenses from './components/Lenses'
+import LensMarket from './components/LensMarket'
 import DocumentList from './DocumentList'
 
 export interface DocumentInterface {
@@ -27,6 +29,8 @@ export const App = (props: AppProps) => {
       <Router>
         <DocumentList default />
         <Document path="/document/:docId" />
+        <Lenses path="/lens-markets" />
+        <LensMarket path="/lens-market/:schemaId" />
       </Router>
       <Footer />
     </>
