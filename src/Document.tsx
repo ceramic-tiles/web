@@ -13,6 +13,9 @@ import DefaultLens from './components/DefaultLens'
 import LensAdvanced from './components/LensAdvanced'
 import LensBasic from './components/LensBasic'
 import useDoc from './hooks/useDoc'
+import { RemoteComponent } from "./RemoteComponent"
+
+const remoteComponentUrl = 'https://raw.githubusercontent.com/oaksprout/remote-lens-component-test/master/dist/main.js?token=APZYZSCQRVZZZLTJ7TRVVADALCT7Y'
 
 interface DocProps extends RouteComponentProps {
   docId?: string
@@ -34,7 +37,7 @@ const Document = (props: DocProps) => {
 
   return (
     <Box px={6} py={6}>
-      {console.log(docId)}
+      <RemoteComponent url={remoteComponentUrl} docContent={docContent} />
       <>
         <Flex mb={6} alignItems="center" justifyContent="space-between">
           <Heading mr={6} size="md">ceramic://{docId}</Heading>
