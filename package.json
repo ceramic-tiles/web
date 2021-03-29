@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "@ceramicnetwork/cli": "^0.20.7",
-    "@ceramicnetwork/http-client": "^0.9.5",
+    "@ceramicnetwork/http-client": "^0.9.6",
     "@chakra-ui/react": "^1.0.0",
     "@emotion/react": "^11.0.0",
     "@emotion/styled": "^11.0.0",
@@ -17,6 +17,7 @@
     "@types/react": "^16.9.0",
     "@types/react-dom": "^16.9.0",
     "firebase": "^8.2.6",
+    "firebase-admin": "^9.6.0",
     "framer-motion": ">=3.0.0",
     "global": "^4.4.0",
     "moment": "^2.29.1",
