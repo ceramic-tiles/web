@@ -43,14 +43,16 @@ const LenSection: React.SFC<LenSectionProps> = (props) => {
 
   const setupLenses = async () => {
     const firstLensMarket = await setupFirstLensMarket()
-    const lensIdsTemp = await setupLensIds(firstLensMarket)
+    const lensIdsTemp = firstLensMarket && (await setupLensIds(firstLensMarket))
 
-    const lensQueries = await lensIdsTemp?.map((lensId: string) => ({
-      docId: lensId,
-    }))
+    const lensQueries =
+      lensIdsTemp &&
+      (await lensIdsTemp?.map((lensId: string) => ({
+        docId: lensId,
+      })))
 
     try {
-      const lensesTemp = await ceramic.multiQuery(lensQueries)
+      const lensesTemp = lensQueries && (await ceramic.multiQuery(lensQueries))
       setLenses(lensesTemp)
       setLensIds(lensIdsTemp)
     } catch (err) {
@@ -69,10 +71,11 @@ const LenSection: React.SFC<LenSectionProps> = (props) => {
       </Text>
       <Select onChange={(e) => setLens(lenses[e.target.value])} w={200} mr={3}>
         <option value="default">Default</option>
-        {lensIds.map((lensId: string) => {
-          const lens = lenses[lensId]
-          return <option value={lensId}>{lens?.state?.content?.title}</option>
-        })}
+        {lensIds &&
+          lensIds?.map((lensId: string) => {
+            const lens = lenses[lensId]
+            return <option value={lensId}>{lens?.state?.content?.title}</option>
+          })}
       </Select>
       {/* <ChakraLink
         as={Link}

@@ -70,10 +70,10 @@ const Document = (props: DocProps) => {
     initialDocIsLoading: any,
     intialDocerror: any
   ) => {
-    if (initialDocIsLoading || intialDocerror) {
+    if ((initialDocIsLoading || intialDocerror) && doc?.state?.metadata?.schema) {
       return
     }
-    return doc?.state?.metadata?.schema.substring(10) // substring removes `ceramic://` from beginning
+    return doc?.state?.metadata?.schema?.substring(10) // substring removes `ceramic://` from beginning
   }
 
   const schema = getSchemaFromDoc(doc, initialDocIsLoading, intialDocerror)
