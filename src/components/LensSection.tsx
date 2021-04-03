@@ -1,8 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Box, Flex, Select, Text } from '@chakra-ui/react'
-import React, { useCallback, useEffect, useState } from 'react'
+import { Flex, Select, Text } from '@chakra-ui/react'
+import React, { useEffect, useState } from 'react'
 import { ceramic } from '../App'
-import DocID from '@ceramicnetwork/docid'
 
 export interface LenSectionProps {
   schema?: string
