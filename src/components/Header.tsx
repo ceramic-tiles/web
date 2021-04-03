@@ -15,7 +15,6 @@ import DocInputForm from './DocInputForm'
 import SampleDocuments from './SampleDocuments'
 import { Link as ReachLink } from '@reach/router'
 
-
 const Header = () => {
   const { isOpen, onToggle } = useDisclosure()
   return (
@@ -37,13 +36,13 @@ const Header = () => {
                 </Box>
                 <Heading as="h1" size="lg" letterSpacing="-1px">
                   Tiles
-            </Heading>
+                </Heading>
               </Flex>
             </Link>
-            <Box mr={3}>
+            {/* <Box mr={3}>
               <ReachLink to="/documents">Documents</ReachLink>
             </Box>
-            <ReachLink to="/lens-markets">Lens Markets</ReachLink>
+            <ReachLink to="/lens-markets">Lens Markets</ReachLink> */}
           </Flex>
         </Box>
         <Flex>

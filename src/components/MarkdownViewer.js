@@ -22,7 +22,6 @@ const mdxComponents = {
 };
 const scope = { MDXProvider };
 const MarkdownViewer = ({ doc }) => {
-  console.log("doc", doc);
   if (!doc) {
     return <pre>loading document...</pre>;
   }
