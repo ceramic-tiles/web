@@ -14,16 +14,12 @@ import {
   Tr,
 } from '@chakra-ui/react'
 import { Link as ReachLink, RouteComponentProps } from '@reach/router'
+import moment from 'moment'
 import React from 'react'
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa'
 import { usePagination } from 'use-pagination-firestore'
 import LoadingTableRows from './components/LoadingTableRows'
 import db from './firebase'
-import moment from 'moment'
-
-interface DocList {
-  docs: [{ docId: string }]
-}
 
 interface DocListProps extends RouteComponentProps {}
 

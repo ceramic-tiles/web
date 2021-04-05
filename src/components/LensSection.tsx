@@ -2,16 +2,21 @@
 import { Flex, Select, Text } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
 import { ceramic } from '../App'
+import useDoc from '../hooks/useDoc'
 
 export interface LenSectionProps {
   schema?: string
   setLens: any
 }
 
-const getFirstLensMarketOnIndex = async (schema?: string) => {
-  const lensMarketIndexDoc = await ceramic.loadDocument(
-    'kjzl6cwe1jw14bij9u6f0824auprf1hjq2s834uk3pbbj0k9zg71rnowqxli2r7'
-  )
+const getFirstLensMarketOnIndex = async (
+  schema?: string,
+  lensMarketIndexDoc?: any
+) => {
+  // const lensMarketIndexDoc = await ceramic.loadDocument(
+  //   'kjzl6cwe1jw14bij9u6f0824auprf1hjq2s834uk3pbbj0k9zg71rnowqxli2r7'
+  //   )
+
   const lensMarkets = lensMarketIndexDoc?.content?.lensMarkets?.filter(
     (lensMarket: any) => lensMarket?.targetSchemas?.includes(schema)
   ) // todo: create LensMarket interface
@@ -33,26 +38,54 @@ const getLensIdsFromLensMarket = async (lensMarket: string) => {
 const LenSection: React.SFC<LenSectionProps> = (props) => {
   const { schema, setLens } = props
 
-  const setupFirstLensMarket = async () =>
-    await getFirstLensMarketOnIndex(schema)
-  const setupLensIds = async (firstLensMarket: any) =>
-    await getLensIdsFromLensMarket(firstLensMarket?.lensMarketId)
+  const {
+    isLoading: lensMarketIndexDocIsLoading,
+    error: lensMarketIndexDocError,
+    data: lensMarketIndexDoc,
+  } = useDoc('kjzl6cwe1jw14bij9u6f0824auprf1hjq2s834uk3pbbj0k9zg71rnowqxli2r7')
 
+  const [firstLensMarket, setFirstLensMarket] = useState<any>({})
   const [lenses, setLenses] = useState<any>({})
   const [lensIds, setLensIds] = useState<any>([])
 
-  const setupLenses = async () => {
-    const firstLensMarket = await setupFirstLensMarket()
-    const lensIdsTemp = firstLensMarket && (await setupLensIds(firstLensMarket))
+  const setupFirstLensMarket = async () => {
+    const firstLensMarketTemp = await getFirstLensMarketOnIndex(
+      schema,
+      lensMarketIndexDoc
+    )
 
-    const lensQueries =
-      lensIdsTemp &&
-      (await lensIdsTemp?.map((lensId: string) => ({
-        docId: lensId,
-      })))
+    setFirstLensMarket(firstLensMarketTemp)
+  }
+  const setupLensIds = async (firstLensMarket: any) => {
+    return await getLensIdsFromLensMarket(firstLensMarket?.lensMarketId)
+  }
+
+  const setupLenses = async () => {
+    if (
+      lensMarketIndexDocIsLoading ||
+      lensMarketIndexDocError ||
+      !firstLensMarket
+    ) {
+      return
+    }
 
     try {
-      const lensesTemp = lensQueries && (await ceramic.multiQuery(lensQueries))
+      await setupFirstLensMarket()
+      console.log('firstLensMarket', firstLensMarket)
+
+      const lensIdsTemp = await setupLensIds(firstLensMarket)
+      console.log('lensIdsTemp', lensIdsTemp)
+
+      const lensQueries =
+        lensIdsTemp &&
+        (await lensIdsTemp?.map((lensId: string) => ({
+          docId: lensId,
+        })))
+      console.log('lensQueries', lensQueries)
+
+      const lensesTemp = await ceramic.multiQuery(lensQueries)
+      console.log('lensesTemp', lensesTemp)
+
       setLenses(lensesTemp)
       setLensIds(lensIdsTemp)
     } catch (err) {
@@ -61,8 +94,14 @@ const LenSection: React.SFC<LenSectionProps> = (props) => {
   }
 
   useEffect(() => {
+    console.table([
+      ['lensMarketIndexDocIsLoading', lensMarketIndexDocIsLoading],
+      ['lensMarketIndexDocError', lensMarketIndexDocError],
+      ['lensMarketIndexDoc', lensMarketIndexDoc],
+    ])
+    console.log(lensMarketIndexDoc  )
     setupLenses()
-  }, [setLenses, setLensIds])
+  }, [setLenses, setLensIds, setFirstLensMarket, lensMarketIndexDocIsLoading, lensMarketIndexDocError])
 
   return (
     <Flex alignItems="center">

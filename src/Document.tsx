@@ -1,24 +1,24 @@
 import {
   Box,
+  Code,
   Divider,
   Flex,
-  Heading,
-  Link as ChakraLink,
-  Text,
-  Spinner,
-  useColorMode,
-  Code,
   Grid,
   GridItem,
+  Heading,
+  Link as ChakraLink,
   Skeleton,
+  Spinner,
+  Text,
+  useColorMode,
 } from '@chakra-ui/react'
-import { Link, RouteComponentProps } from '@reach/router'
+import { RouteComponentProps } from '@reach/router'
 import React, { useEffect, useState } from 'react'
-import useDoc from './hooks/useDoc'
-import useCommit from './hooks/useCommit'
-import { RemoteComponent } from './RemoteComponent'
 import LensSection from './components/LensSection'
 import { formatAnchorStatus } from './helpers'
+import useCommit from './hooks/useCommit'
+import useDoc from './hooks/useDoc'
+import { RemoteComponent } from './RemoteComponent'
 
 interface DocProps extends RouteComponentProps {
   docId?: string
@@ -70,7 +70,10 @@ const Document = (props: DocProps) => {
     initialDocIsLoading: any,
     intialDocerror: any
   ) => {
-    if ((initialDocIsLoading || intialDocerror) && doc?.state?.metadata?.schema) {
+    if (
+      (initialDocIsLoading || intialDocerror) &&
+      doc?.state?.metadata?.schema
+    ) {
       return
     }
     return doc?.state?.metadata?.schema?.substring(10) // substring removes `ceramic://` from beginning

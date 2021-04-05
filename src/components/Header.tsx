@@ -13,7 +13,6 @@ import { GiAllSeeingEye } from 'react-icons/gi'
 import ColorModeSwitcher from './ColorModeSwitcher'
 import DocInputForm from './DocInputForm'
 import SampleDocuments from './SampleDocuments'
-import { Link as ReachLink } from '@reach/router'
 
 const Header = () => {
   const { isOpen, onToggle } = useDisclosure()
