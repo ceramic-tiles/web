@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react'
 import { ceramic } from '../App'
 import useDoc from '../hooks/useDoc'
 
-export interface LenSectionProps {
+export interface LensSectionProps {
   schema?: string
   setLens: any
 }
@@ -35,7 +35,7 @@ const getLensIdsFromLensMarket = async (lensMarket: string) => {
   return lensMarketDoc?.content?.lensIds
 }
 
-const LenSection: React.SFC<LenSectionProps> = (props) => {
+const LensSection: React.SFC<LensSectionProps> = (props) => {
   const { schema, setLens } = props
 
   const {
@@ -71,20 +71,16 @@ const LenSection: React.SFC<LenSectionProps> = (props) => {
 
     try {
       await setupFirstLensMarket()
-      console.log('firstLensMarket', firstLensMarket)
 
       const lensIdsTemp = await setupLensIds(firstLensMarket)
-      console.log('lensIdsTemp', lensIdsTemp)
 
       const lensQueries =
         lensIdsTemp &&
         (await lensIdsTemp?.map((lensId: string) => ({
           docId: lensId,
         })))
-      console.log('lensQueries', lensQueries)
 
       const lensesTemp = await ceramic.multiQuery(lensQueries)
-      console.log('lensesTemp', lensesTemp)
 
       setLenses(lensesTemp)
       setLensIds(lensIdsTemp)
@@ -94,14 +90,22 @@ const LenSection: React.SFC<LenSectionProps> = (props) => {
   }
 
   useEffect(() => {
-    console.table([
-      ['lensMarketIndexDocIsLoading', lensMarketIndexDocIsLoading],
-      ['lensMarketIndexDocError', lensMarketIndexDocError],
-      ['lensMarketIndexDoc', lensMarketIndexDoc],
-    ])
-    console.log(lensMarketIndexDoc  )
+    // console.table([
+    //   ['lensMarketIndexDocIsLoading', lensMarketIndexDocIsLoading],
+    //   ['lensMarketIndexDocError', lensMarketIndexDocError],
+    //   ['lensMarketIndexDoc', lensMarketIndexDoc],
+    // ])
+    // console.log(lensMarketIndexDoc  )
     setupLenses()
-  }, [setLenses, setLensIds, setFirstLensMarket, lensMarketIndexDocIsLoading, lensMarketIndexDocError])
+  }, [
+    lensMarketIndexDoc,
+    lensMarketIndexDocIsLoading,
+    lensMarketIndexDocError,
+    firstLensMarket,
+    lenses,
+    lensIds,
+    schema,
+  ])
 
   return (
     <Flex alignItems="center">
@@ -127,4 +131,20 @@ const LenSection: React.SFC<LenSectionProps> = (props) => {
   )
 }
 
-export default LenSection
+// export interface LensSectionProps {
+  
+// }
+ 
+// export interface LensSectionState {
+  
+// }
+ 
+// class LensSection extends React.Component<LensSectionProps, LensSectionState> {
+//   state = { :  }
+//   render() { 
+//     return (  );
+//   }
+// }
+ 
+
+export default LensSection
