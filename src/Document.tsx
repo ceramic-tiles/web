@@ -33,6 +33,10 @@ const Document = (props: DocProps) => {
   const [commitId, setCommitId] = useState(props.commitId)
   const [docContent, setDocContent] = useState<Object>()
 
+  const [testLensComponentUrl, setTestLensComponentUrl] = useState<string>(
+    'https://rten55vhgfjc3cu4n2i5o3i25yiva7gdt72q4ots2eaggkeyf2ja.arweave.net/jMje9qcxUi2KnG6R120a7hFQfMOf9Q46ctEAYyiYLpI/main.js'
+  )
+
   const [lens, setLens] = useState<any>()
 
   const {
@@ -96,12 +100,22 @@ const Document = (props: DocProps) => {
             </Heading>
             {schema && <LensSection schema={schema} setLens={setLens} />}
           </Flex>
+          <List>
+            <ListItem>https://j5drcedmjeslq7uez53uobpxopmsodxng2naavw727mirbt6tw3a.arweave.net/T0cREGxJJLh-hM93RwX3c9knDu02mgBW39fYiIZ-nbY/main.js</ListItem>
+            <ListItem>https://j5drcedmjeslq7uez53uobpxopmsodxng2naavw727mirbt6tw3a.arweave.net/T0cREGxJJLh-hM93RwX3c9knDu02mgBW39fYiIZ-nbY/main.js</ListItem>
+            <ListItem>https://rten55vhgfjc3cu4n2i5o3i25yiva7gdt72q4ots2eaggkeyf2ja.arweave.net/jMje9qcxUi2KnG6R120a7hFQfMOf9Q46ctEAYyiYLpI/main.js</ListItem>
+          </List>
+          <Input
+            value={testLensComponentUrl}
+            onChange={(e) => setTestLensComponentUrl(e.target.value)}
+          />
           <Divider my={6} />
           {lens ? (
             !isLoading && (
               <Box maxW={'100%'} overflowX="auto">
                 <RemoteComponent
-                  url={lens?.state?.content?.content}
+                  // url={lens?.state?.content?.content}
+                  url={testLensComponentUrl}
                   docContent={docContent}
                 />
               </Box>
