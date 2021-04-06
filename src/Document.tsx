@@ -6,7 +6,10 @@ import {
   Grid,
   GridItem,
   Heading,
+  Input,
   Link as ChakraLink,
+  List,
+  ListItem,
   Skeleton,
   Spinner,
   Text,
@@ -19,7 +22,6 @@ import { formatAnchorStatus } from './helpers'
 import useCommit from './hooks/useCommit'
 import useDoc from './hooks/useDoc'
 import { RemoteComponent } from './RemoteComponent'
-
 
 interface DocProps extends RouteComponentProps {
   docId?: string
@@ -99,8 +101,7 @@ const Document = (props: DocProps) => {
             !isLoading && (
               <Box maxW={'100%'} overflowX="auto">
                 <RemoteComponent
-                  // url={lens?.state?.content?.content}
-                  url='https://65hkemhdlzydmhwwnfn53poslqezwjinjxotpcuwgkgmd2ktp3cq.arweave.net/906iMONecDYe1mlb3b3SXAmbJQ1N3TeKljKMwelTfsU/main.js'
+                  url={lens?.state?.content?.content}
                   docContent={docContent}
                 />
               </Box>
