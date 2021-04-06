@@ -2,19 +2,28 @@
 import { Flex, Select, Text } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
 import { ceramic } from '../App'
-import useDoc from '../hooks/useDoc'
 
 export interface LenSectionProps {
   schema?: string
   setLens: any
 }
 
-const getFirstLensMarketOnIndex = async (schema?: string, lensMarketIndexDoc?: any) => {
-  const lensMarkets = await lensMarketIndexDoc?.state?.content?.lensMarkets?.filter((lensMarket: any) => {
+const getLensMarketIndexDoc = async () => {
+  return await ceramic.loadDocument(
+    'kjzl6cwe1jw1491bthc9uqawl3styv7jqwcuciakl8z19s5o1kr7odnd5iisr7y'
+  )
+}
+
+const getFirstLensMarketOnIndex = async (schema?: string) => {
+  const lensMarkets = await getLensMarketIndexDoc().then(
+    (res) =>
+      res?.state?.content?.lensMarkets?.filter((lensMarket: any) => {
         return lensMarket?.targetSchemas?.includes(schema)
       }) // todo: create LensMarket interface
+  )
 
   const firstLensMarket = lensMarkets[0]
+  console.log('firstLensMarket', firstLensMarket)
 
   return firstLensMarket
 }
@@ -31,33 +40,35 @@ const getLensIdsFromLensMarket = async (lensMarket: string) => {
 const LenSection: React.SFC<LenSectionProps> = (props) => {
   const { schema, setLens } = props
 
+  // const {
+  //   isLoading: lensMarketIndexDocIsLoading,
+  //   error: lensMarketIndexDocError,
+  //   data: lensMarketIndexDoc,
+  // } = useDoc('kjzl6cwe1jw14bij9u6f0824auprf1hjq2s834uk3pbbj0k9zg71rnowqxli2r7')
+
+  // const [firstLensMarket, setFirstLensMarket] = useState<any>({})
   const [lenses, setLenses] = useState<any>({})
   const [lensIds, setLensIds] = useState<any>([])
 
-  const {
-    isLoading: lensMarketIndexDocIsLoading,
-    error: lensMarketIndexDocError,
-    data: lensMarketIndexDoc,
-  } = useDoc('kjzl6cwe1jw1491bthc9uqawl3styv7jqwcuciakl8z19s5o1kr7odnd5iisr7y')
-
   const setupFirstLensMarket = async () => {
-    return await getFirstLensMarketOnIndex(schema, lensMarketIndexDoc)
+    return await getFirstLensMarketOnIndex(schema)
   }
   const setupLensIds = async (firstLensMarket: any) => {
     return await getLensIdsFromLensMarket(firstLensMarket?.lensMarketId)
   }
 
   const setupLenses = async () => {
-    if (
-      lensMarketIndexDocIsLoading ||
-      lensMarketIndexDocError ||
-      !lensMarketIndexDoc
-    ) {
-      return
-    }
+    // if (
+    //   lensMarketIndexDocIsLoading ||
+    //   lensMarketIndexDocError ||
+    //   !firstLensMarket
+    // ) {
+    //   return
+    // }
 
     try {
       const firstLensMarket = await setupFirstLensMarket()
+      console.log('firstLensMarket', firstLensMarket)
 
       const lensIdsTemp = await setupLensIds(firstLensMarket)
 
