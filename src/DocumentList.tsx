@@ -9,6 +9,7 @@ import {
   Table,
   Tbody,
   Td,
+  Text,
   Th,
   Thead,
   Tr,
@@ -39,6 +40,7 @@ const DocumentList = (props: DocListProps) => {
 
   return (
     <Box p={6}>
+      <Text>/document/kjzl6cwe1jw149zai383d4xtgq45pv7cazzjynyoqvtgzeuaoda4u0vjff1fzst</Text>
       <Flex alignItems="center" justifyContent="space-between" m={6}>
         <Heading size="md">All Documents</Heading>
         <HStack fontSize="sm" divider={<StackDivider />}>

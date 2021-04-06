@@ -30,7 +30,7 @@ const Document = (props: DocProps) => {
   const [commitId, setCommitId] = useState(props.commitId)
   const [docContent, setDocContent] = useState<Object>()
 
-  const [lens, setLens] = useState<any>({})
+  const [lens, setLens] = useState<any>()
 
   const {
     isLoading: initialDocIsLoading,
@@ -91,7 +91,7 @@ const Document = (props: DocProps) => {
             <Heading mr={6} size="md">
               ceramic://{docId}
             </Heading>
-            <LensSection schema={schema} setLens={setLens} />
+            {schema && <LensSection schema={schema} setLens={setLens} />}
           </Flex>
           <Divider my={6} />
           {lens ? (

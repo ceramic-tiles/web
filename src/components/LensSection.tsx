@@ -4,22 +4,15 @@ import React, { useEffect, useState } from 'react'
 import { ceramic } from '../App'
 import useDoc from '../hooks/useDoc'
 
-export interface LensSectionProps {
+export interface LenSectionProps {
   schema?: string
   setLens: any
 }
 
-const getFirstLensMarketOnIndex = async (
-  schema?: string,
-  lensMarketIndexDoc?: any
-) => {
-  // const lensMarketIndexDoc = await ceramic.loadDocument(
-  //   'kjzl6cwe1jw14bij9u6f0824auprf1hjq2s834uk3pbbj0k9zg71rnowqxli2r7'
-  //   )
-
-  const lensMarkets = lensMarketIndexDoc?.content?.lensMarkets?.filter(
-    (lensMarket: any) => lensMarket?.targetSchemas?.includes(schema)
-  ) // todo: create LensMarket interface
+const getFirstLensMarketOnIndex = async (schema?: string, lensMarketIndexDoc?: any) => {
+  const lensMarkets = await lensMarketIndexDoc?.state?.content?.lensMarkets?.filter((lensMarket: any) => {
+        return lensMarket?.targetSchemas?.includes(schema)
+      }) // todo: create LensMarket interface
 
   const firstLensMarket = lensMarkets[0]
 
@@ -35,26 +28,20 @@ const getLensIdsFromLensMarket = async (lensMarket: string) => {
   return lensMarketDoc?.content?.lensIds
 }
 
-const LensSection: React.SFC<LensSectionProps> = (props) => {
+const LenSection: React.SFC<LenSectionProps> = (props) => {
   const { schema, setLens } = props
+
+  const [lenses, setLenses] = useState<any>({})
+  const [lensIds, setLensIds] = useState<any>([])
 
   const {
     isLoading: lensMarketIndexDocIsLoading,
     error: lensMarketIndexDocError,
     data: lensMarketIndexDoc,
-  } = useDoc('kjzl6cwe1jw14bij9u6f0824auprf1hjq2s834uk3pbbj0k9zg71rnowqxli2r7')
-
-  const [firstLensMarket, setFirstLensMarket] = useState<any>({})
-  const [lenses, setLenses] = useState<any>({})
-  const [lensIds, setLensIds] = useState<any>([])
+  } = useDoc('kjzl6cwe1jw1491bthc9uqawl3styv7jqwcuciakl8z19s5o1kr7odnd5iisr7y')
 
   const setupFirstLensMarket = async () => {
-    const firstLensMarketTemp = await getFirstLensMarketOnIndex(
-      schema,
-      lensMarketIndexDoc
-    )
-
-    setFirstLensMarket(firstLensMarketTemp)
+    return await getFirstLensMarketOnIndex(schema, lensMarketIndexDoc)
   }
   const setupLensIds = async (firstLensMarket: any) => {
     return await getLensIdsFromLensMarket(firstLensMarket?.lensMarketId)
@@ -64,13 +51,13 @@ const LensSection: React.SFC<LensSectionProps> = (props) => {
     if (
       lensMarketIndexDocIsLoading ||
       lensMarketIndexDocError ||
-      !firstLensMarket
+      !lensMarketIndexDoc
     ) {
       return
     }
 
     try {
-      await setupFirstLensMarket()
+      const firstLensMarket = await setupFirstLensMarket()
 
       const lensIdsTemp = await setupLensIds(firstLensMarket)
 
@@ -84,28 +71,18 @@ const LensSection: React.SFC<LensSectionProps> = (props) => {
 
       setLenses(lensesTemp)
       setLensIds(lensIdsTemp)
+      console.table([
+        ['lenses', lenses],
+        ['lensIds', lensIds],
+      ])
     } catch (err) {
       console.error(err)
     }
   }
 
   useEffect(() => {
-    // console.table([
-    //   ['lensMarketIndexDocIsLoading', lensMarketIndexDocIsLoading],
-    //   ['lensMarketIndexDocError', lensMarketIndexDocError],
-    //   ['lensMarketIndexDoc', lensMarketIndexDoc],
-    // ])
-    // console.log(lensMarketIndexDoc  )
     setupLenses()
-  }, [
-    lensMarketIndexDoc,
-    lensMarketIndexDocIsLoading,
-    lensMarketIndexDocError,
-    firstLensMarket,
-    lenses,
-    lensIds,
-    schema,
-  ])
+  }, [])
 
   return (
     <Flex alignItems="center">
@@ -120,31 +97,8 @@ const LensSection: React.SFC<LensSectionProps> = (props) => {
             return <option value={lensId}>{lens?.state?.content?.title}</option>
           })}
       </Select>
-      {/* <ChakraLink
-        as={Link}
-        to={`/lens-market/${schema.substring(10)}`}
-        textDecoration="underline"
-      >
-        Lens Market
-      </ChakraLink> */}
     </Flex>
   )
 }
 
-// export interface LensSectionProps {
-  
-// }
- 
-// export interface LensSectionState {
-  
-// }
- 
-// class LensSection extends React.Component<LensSectionProps, LensSectionState> {
-//   state = { :  }
-//   render() { 
-//     return (  );
-//   }
-// }
- 
-
-export default LensSection
+export default LenSection
