@@ -103,7 +103,6 @@ const Document = (props: DocProps) => {
               <Box maxW={'100%'} overflowX="auto">
                 <RemoteComponent
                   url={lens?.state?.content?.content}
-                  // url="https://2bnl5bihjl3eh455sojlebczpl2qjss54fgbecxnw52ztio73aca.arweave.net/0Fq-hQdK9kPzvZOSsgRZevUEyl3hTBIK7bd1maHf2AQ/main.js"
                   docContent={docContent}
                 />
               </Box>

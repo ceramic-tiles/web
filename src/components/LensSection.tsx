@@ -94,13 +94,6 @@ const LenSection: React.SFC<LenSectionProps> = (props) => {
             return <option value={lensId}>{lens?.state?.content?.title}</option>
           })}
       </Select>
-      {/* <ChakraLink
-        as={Link}
-        to={`/lens-market/${schema}`}
-        textDecoration="underline"
-      >
-        Lens Market
-      </ChakraLink> */}
     </Flex>
   )
 }
