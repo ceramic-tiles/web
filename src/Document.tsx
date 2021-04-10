@@ -91,7 +91,11 @@ const Document = (props: DocProps) => {
             <Heading mr={6} size="md">
               ceramic://{docId}
             </Heading>
-            {schema && <LensSection schema={schema} setLens={setLens} />}
+            {schema ? (
+              <LensSection schema={schema} setLens={setLens} />
+            ) : (
+              <Text color="gray.400">No Lens available</Text>
+            )}
           </Flex>
           <Divider my={6} />
           {lens ? (
