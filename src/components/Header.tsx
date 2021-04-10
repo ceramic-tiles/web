@@ -38,10 +38,6 @@ const Header = () => {
                 </Heading>
               </Flex>
             </Link>
-            {/* <Box mr={3}>
-              <ReachLink to="/documents">Documents</ReachLink>
-            </Box>
-            <ReachLink to="/lens-markets">Lens Markets</ReachLink> */}
           </Flex>
         </Box>
         <Flex>
@@ -51,7 +47,6 @@ const Header = () => {
               onClick={onToggle}
               bgGradient="linear(to-r, gray.600, gray.500)"
               _hover={{
-                // color: 'black',
                 bgGradient: 'linear(to-r, gray.500, gray.400)',
               }}
               _active={{
