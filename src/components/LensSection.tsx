@@ -10,7 +10,7 @@ export interface LenSectionProps {
 
 const getLensMarketIndexDoc = async () => {
   return await ceramic.loadDocument(
-    'kjzl6cwe1jw1491bthc9uqawl3styv7jqwcuciakl8z19s5o1kr7odnd5iisr7y'
+    'kjzl6cwe1jw149v7r31yn43g4q85aeynaigzx0ocxlf1u3j5ptts17p4qxceww8'
   )
 }
 
@@ -23,7 +23,6 @@ const getFirstLensMarketOnIndex = async (schema?: string) => {
   )
 
   const firstLensMarket = lensMarkets[0]
-  console.log('firstLensMarket', firstLensMarket)
 
   return firstLensMarket
 }
@@ -39,14 +38,6 @@ const getLensIdsFromLensMarket = async (lensMarket: string) => {
 
 const LenSection: React.SFC<LenSectionProps> = (props) => {
   const { schema, setLens } = props
-
-  // const {
-  //   isLoading: lensMarketIndexDocIsLoading,
-  //   error: lensMarketIndexDocError,
-  //   data: lensMarketIndexDoc,
-  // } = useDoc('kjzl6cwe1jw14bij9u6f0824auprf1hjq2s834uk3pbbj0k9zg71rnowqxli2r7')
-
-  // const [firstLensMarket, setFirstLensMarket] = useState<any>({})
   const [lenses, setLenses] = useState<any>({})
   const [lensIds, setLensIds] = useState<any>([])
 
@@ -58,17 +49,8 @@ const LenSection: React.SFC<LenSectionProps> = (props) => {
   }
 
   const setupLenses = async () => {
-    // if (
-    //   lensMarketIndexDocIsLoading ||
-    //   lensMarketIndexDocError ||
-    //   !firstLensMarket
-    // ) {
-    //   return
-    // }
-
     try {
       const firstLensMarket = await setupFirstLensMarket()
-      console.log('firstLensMarket', firstLensMarket)
 
       const lensIdsTemp = await setupLensIds(firstLensMarket)
 
@@ -100,7 +82,11 @@ const LenSection: React.SFC<LenSectionProps> = (props) => {
       <Text fontWeight="bold" mr={3}>
         Pick Lens
       </Text>
-      <Select onChange={(e) => setLens(lenses[e.target.value])} w={200} mr={3}>
+      <Select
+        onChange={(e: any) => setLens(lenses[e.target.value])}
+        w={200}
+        mr={3}
+      >
         <option value="default">Default</option>
         {lensIds &&
           lensIds?.map((lensId: string) => {
@@ -108,6 +94,13 @@ const LenSection: React.SFC<LenSectionProps> = (props) => {
             return <option value={lensId}>{lens?.state?.content?.title}</option>
           })}
       </Select>
+      {/* <ChakraLink
+        as={Link}
+        to={`/lens-market/${schema}`}
+        textDecoration="underline"
+      >
+        Lens Market
+      </ChakraLink> */}
     </Flex>
   )
 }
