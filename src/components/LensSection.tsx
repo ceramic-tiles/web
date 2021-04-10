@@ -3,7 +3,7 @@ import { Flex, Select, Text } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
 import { ceramic } from '../App'
 
-export interface LenSectionProps {
+export interface LensSectionProps {
   schema?: string
   setLens: any
 }
@@ -36,7 +36,7 @@ const getLensIdsFromLensMarket = async (lensMarket: string) => {
   return lensMarketDoc?.content?.lensIds
 }
 
-const LenSection: React.SFC<LenSectionProps> = (props) => {
+const LensSection: React.SFC<LensSectionProps> = (props) => {
   const { schema, setLens } = props
   const [lenses, setLenses] = useState<any>({})
   const [lensIds, setLensIds] = useState<any>([])
@@ -98,4 +98,4 @@ const LenSection: React.SFC<LenSectionProps> = (props) => {
   )
 }
 
-export default LenSection
+export default LensSection
