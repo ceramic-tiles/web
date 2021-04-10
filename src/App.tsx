@@ -9,6 +9,7 @@ import Document from './Document'
 import Lenses from './components/Lenses'
 import LensMarket from './components/LensMarket'
 import DocumentList from './DocumentList'
+import { Box } from '@chakra-ui/layout'
 
 export interface DocumentInterface {
   docId: string
@@ -26,12 +27,14 @@ export const App = (props: AppProps) => {
   return (
     <>
       <Header />
-      <Router>
-        <DocumentList default />
-        <Document path="/document/:docId" />
-        <Lenses path="/lens-markets" />
-        <LensMarket path="/lens-market/:schemaId" />
-      </Router>
+      <Box minH="75vh">
+        <Router>
+          <DocumentList default />
+          <Document path="/document/:docId" />
+          <Lenses path="/lens-markets" />
+          <LensMarket path="/lens-market/:schemaId" />
+        </Router>
+      </Box>
       <Footer />
     </>
   )
