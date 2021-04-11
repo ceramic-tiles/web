@@ -19,7 +19,7 @@ import { FaChevronLeft, FaChevronRight } from 'react-icons/fa'
 import { usePagination } from 'use-pagination-firestore'
 import LoadingTableRows from './components/LoadingTableRows'
 import db from './firebase'
-import moment from 'moment'
+import dayjs from 'dayjs'
 
 interface DocList {
   docs: [{ docId: string }]
@@ -84,7 +84,7 @@ const DocumentList = (props: DocListProps) => {
                       </Link>
                     </Td>
                     <Td>
-                      {moment(timestamp).format("h:mm:ssA, MMM D 'YY") || '—'}
+                      {dayjs(timestamp).format("h:mm:ssA, MMM D 'YY") || '—'}
                     </Td>
                   </Tr>
                 )
