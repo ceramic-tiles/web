@@ -21,10 +21,6 @@ import LoadingTableRows from './components/LoadingTableRows'
 import db from './firebase'
 import dayjs from 'dayjs'
 
-interface DocList {
-  docs: [{ docId: string }]
-}
-
 interface DocListProps extends RouteComponentProps {}
 
 const DocumentList = (props: DocListProps) => {
