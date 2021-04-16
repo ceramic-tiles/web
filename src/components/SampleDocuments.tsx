@@ -10,9 +10,6 @@ import {
   Stack,
   Text,
   useDisclosure,
-  Flex,
-  Heading,
-  Divider,
 } from '@chakra-ui/react'
 import { navigate } from '@reach/router'
 import * as React from 'react'

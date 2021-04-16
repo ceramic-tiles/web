@@ -7,6 +7,7 @@ import Header from './components/Header'
 import Footer from './components/Footer'
 import Document from './Document'
 import DocumentList from './DocumentList'
+import { Box } from '@chakra-ui/layout'
 
 export interface DocumentInterface {
   docId: string
@@ -24,10 +25,12 @@ export const App = (props: AppProps) => {
   return (
     <>
       <Header />
-      <Router>
-        <DocumentList default />
-        <Document path="/document/:docId" />
-      </Router>
+      <Box minH="75vh">
+        <Router>
+          <DocumentList default />
+          <Document path="/document/:docId" />
+        </Router>
+      </Box>
       <Footer />
     </>
   )
