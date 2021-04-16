@@ -14,12 +14,16 @@ import {
   Tr,
 } from '@chakra-ui/react'
 import { Link as ReachLink, RouteComponentProps } from '@reach/router'
-import moment from 'moment'
 import React from 'react'
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa'
 import { usePagination } from 'use-pagination-firestore'
 import LoadingTableRows from './components/LoadingTableRows'
 import db from './firebase'
+import dayjs from 'dayjs'
+
+interface DocList {
+  docs: [{ docId: string }]
+}
 
 interface DocListProps extends RouteComponentProps {}
 
@@ -80,7 +84,7 @@ const DocumentList = (props: DocListProps) => {
                       </Link>
                     </Td>
                     <Td>
-                      {moment(timestamp).format("h:mm:ssA, MMM D 'YY") || '—'}
+                      {dayjs(timestamp).format("h:mm:ssA, MMM D 'YY") || '—'}
                     </Td>
                   </Tr>
                 )

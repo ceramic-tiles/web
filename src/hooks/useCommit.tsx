@@ -2,7 +2,7 @@ import { useQuery } from 'react-query'
 import DocID from "@ceramicnetwork/docid";
 import { ceramic } from '../App'
 
-const getCommitById = async (docId: DocID) => {
+const getCommitById = async (docId: any) => {
   const doc = await ceramic.loadDocument(docId).then((res) => res)
   return doc
 }
