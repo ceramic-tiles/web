@@ -51,7 +51,7 @@ const Document = (props: DocProps) => {
     // TODO: Clean this up, currently we're loading the initial document twice and this shouldn't be necessary
     // on the initial render/load
     const updateContent =
-      doc?.state?.content || doc?.state?.next?.content || undefined
+      doc?.state?.next?.content || doc?.state?.content || undefined
     if (commitId && commitDoc && doc !== commitDoc) {
       setDocContent(commitDoc.state.content)
     } else {
