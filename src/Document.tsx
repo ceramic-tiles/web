@@ -8,7 +8,6 @@ import {
   Heading,
   Link as ChakraLink,
   Skeleton,
-  Spinner,
   Text,
   useColorMode,
 } from '@chakra-ui/react'
@@ -27,7 +26,7 @@ interface DocProps extends RouteComponentProps {
 
 const Document = (props: DocProps) => {
   const { docId } = props
-  const [commitId, setCommitId] = useState(props.commitId)
+  const [commitId, setCommitId] = useState<string>()
   const [docContent, setDocContent] = useState<Object>()
 
   const [lens, setLens] = useState<any>()
@@ -50,19 +49,27 @@ const Document = (props: DocProps) => {
   useEffect(() => {
     // TODO: Clean this up, currently we're loading the initial document twice and this shouldn't be necessary
     // on the initial render/load
-    const updateContent =
-      doc?.state?.content || doc?.state?.next?.content || undefined
-    if (commitId && commitDoc && doc !== commitDoc) {
-      setDocContent(commitDoc.state.content)
+    let updateContent
+    if ((commitId && commitDoc) && (doc !== commitDoc)) {
+      if (!isLoading) {
+        updateContent = commitDoc?.state?.next?.content || commitDoc?.state?.content || undefined
+        setDocContent(updateContent)
+      }
     } else {
-      setDocContent(updateContent)
+      if (!isLoading) {
+        updateContent = doc?.state?.next?.content || doc?.state?.content || undefined
+        setDocContent(updateContent)
+      }  
     }
-  }, [doc, commitId, commitDoc])
+  }, [doc, commitId, commitDoc, isLoading])
 
   const { colorMode } = useColorMode()
 
-  const handleChangeCommit = (commitID: string) => {
-    if (commitId !== commitID) setCommitId(commitID)
+  const handleChangeCommit = (newCommitId: string) => {
+    if (commitId !== newCommitId) {
+      setDocContent(undefined)
+      setCommitId(newCommitId)
+    } 
   }
 
   const getSchemaFromDoc = (
@@ -117,22 +124,6 @@ const Document = (props: DocProps) => {
               gap={6}
             >
               <GridItem colSpan={4} position="relative">
-                {isLoading && (
-                  <Box
-                    position="absolute"
-                    display="flex"
-                    justifyContent="center"
-                    alignItems="center"
-                    backgroundColor={
-                      colorMode === 'dark' ? 'gray.800' : 'gray.200'
-                    }
-                    opacity="0.5"
-                    height="100%"
-                    width="100%"
-                  >
-                    <Spinner size="xl" />
-                  </Box>
-                )}
                 <Box mb={6}>
                   <Heading size="md" mb={3}>
                     Content
