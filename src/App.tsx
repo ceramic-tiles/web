@@ -1,13 +1,10 @@
 import CeramicClient from '@ceramicnetwork/http-client'
-import { Router } from '@reach/router'
-
-import { RouteComponentProps } from '@reach/router'
+import { Box } from '@chakra-ui/layout'
+import { RouteComponentProps, Router } from '@reach/router'
 import * as React from 'react'
-import Header from './components/Header'
 import Footer from './components/Footer'
 import Document from './Document'
 import DocumentList from './DocumentList'
-import { Box } from '@chakra-ui/layout'
 
 export interface DocumentInterface {
   docId: string
@@ -24,8 +21,7 @@ interface AppProps extends RouteComponentProps {
 export const App = (props: AppProps) => {
   return (
     <>
-      <Header />
-      <Box minH="75vh">
+      <Box minH="90vh">
         <Router>
           <DocumentList default />
           <Document path="/document/:docId" />
