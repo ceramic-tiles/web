@@ -13,6 +13,8 @@ import { GiAllSeeingEye } from 'react-icons/gi'
 import ColorModeSwitcher from './ColorModeSwitcher'
 import DocInputForm from './DocInputForm'
 import SampleDocuments from './SampleDocuments'
+import logo from '../images/logo.svg'
+import logoOrange from '../images/logo-orange.svg'
 
 const Header = () => {
   const { isOpen, onToggle } = useDisclosure()
@@ -30,10 +32,8 @@ const Header = () => {
                 color="white"
                 bgGradient="linear(to-r, orange.500, orange.300)"
               >
-                <Box mr={2}>
-                  <GiAllSeeingEye color="orange.500" size="40" />
-                </Box>
-                <Heading as="h1" size="lg" letterSpacing="-1px">
+              <Image display={{base: 'none', lg: 'inherit'}} src={logo} mr={{base: 0, lg: 1}} h={25} />
+              <Image display={{base: 'inherit', lg: 'none'}} src={logoOrange} mr={{base: 0, lg: 1}} h={25} />
                   Tiles
                 </Heading>
               </Flex>
