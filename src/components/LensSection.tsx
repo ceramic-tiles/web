@@ -51,6 +51,7 @@ const LensSection: React.SFC<LensSectionProps> = (props) => {
   const setupLenses = async () => {
     try {
       const firstLensMarket = await setupFirstLensMarket()
+      console.log(firstLensMarket)
 
       const lensIdsTemp = await setupLensIds(firstLensMarket)
 
@@ -79,15 +80,14 @@ const LensSection: React.SFC<LensSectionProps> = (props) => {
 
   return (
     <Flex alignItems="center">
-      <Text fontWeight="bold" mr={3}>
-        Pick Lens
-      </Text>
       <Select
         onChange={(e: any) => setLens(lenses[e.target.value])}
-        w={200}
-        mr={3}
+        w={{ base: '100%', lg: 200 }}
+        disabled={lensIds.length > 0}
+        borderWidth={{ base: 0, lg: 1 }}
+        _focus={{ base: { borderWidth: 0 }, lg: { borderWidth: 1 } }}
       >
-        <option value="default">Default</option>
+        <option value="default">Default Lens</option>
         {lensIds &&
           lensIds?.map((lensId: string) => {
             const lens = lenses[lensId]
