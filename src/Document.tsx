@@ -15,7 +15,7 @@ import { Link, RouteComponentProps } from '@reach/router'
 import React, { useEffect, useState } from 'react'
 import { BiErrorCircle } from 'react-icons/bi'
 import Header from './components/Header'
-import { formatAnchorStatus } from './helpers'
+import { formatAnchorStatus, truncate } from './helpers'
 import useCommit from './hooks/useCommit'
 import useDoc from './hooks/useDoc'
 import { RemoteComponent } from './RemoteComponent'
@@ -182,8 +182,8 @@ const Document = (props: DocProps) => {
                     <Heading size="md" mb={3}>
                       ID
                     </Heading>
-                    <Text isTruncated maxW="45ch">
-                      {docId}
+                    <Text>
+                      {docId && truncate(docId, 45)}
                     </Text>
                     <Divider my={5} />
                   </Box>
@@ -209,20 +209,16 @@ const Document = (props: DocProps) => {
                                   bgGradient="linear(to-r, orange.600, orange.400)"
                                   fontWeight="bold"
                                   bgClip="text"
-                                  isTruncated
-                                  maxW="45ch"
                                   wordBreak="break-all"
                                 >
-                                  {entry[1] && entry[1].toString()}
+                                  {entry[1] && truncate(entry[1].toString(), 45)}
                                 </Text>
                               </Link>
                             ) : (
                               <Text
                                 wordBreak="break-all"
-                                maxW="45ch"
-                                isTruncated
                               >
-                                {entry[1] && entry[1].toString()}
+                                {entry[1] && truncate(entry[1].toString(), 45)}
                               </Text>
                             )}
                           </Box>
@@ -298,8 +294,8 @@ const Document = (props: DocProps) => {
                                 {(commit.cid.toString() === commitId ||
                                   (!commitId && i === 0)) &&
                                   '[X]'}{' '}
-                                <Text isTruncated maxW="40ch">
-                                  {commit.cid.toString()}
+                                <Text>
+                                  {commit?.cid && truncate(commit?.cid?.toString(), 45)}
                                 </Text>{' '}
                                 {i === 0 && '(latest)'}
                               </Flex>

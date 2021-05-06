@@ -23,13 +23,13 @@ const DocInputForm: React.SFC<DocInputFormProps> = ({ isLoading, docId }) => {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <Box width={{ base: '325px', md: '775px' }} mr={1}>
-        <InputGroup>
+        <InputGroup size="lg">
           <InputLeftAddon
             pointerEvents="none"
             bgColor="gray.100"
             color="gray.500"
             children="ceramic://"
-            w={100}
+            w={110}
             display={{ base: 'none', md: 'inherit' }}
           />
           <Input
@@ -37,7 +37,7 @@ const DocInputForm: React.SFC<DocInputFormProps> = ({ isLoading, docId }) => {
             type="text"
             defaultValue={docId}
             ref={register()}
-            placeholder="e.g. k3y52l7qbv1frxjdr9qpn9ldvbxb0jg4eig7wtjkdu6gk84vyazw9j4txf4o6d2io"
+            placeholder="Enter Stream ID e.g. k3y52l7qbv1frxjdr9qpn9ldvbxb0jg4eig7wtjkdu6gk84vyazw9j4txf4o6d2io"
             borderWidth={{base: 0, md: 1}}
             borderLeftWidth={1}
           />
@@ -46,6 +46,7 @@ const DocInputForm: React.SFC<DocInputFormProps> = ({ isLoading, docId }) => {
             children={
               <Button
               type="submit"
+              size='lg'
               w="100%"
               disabled={isLoading}
               color="white"
