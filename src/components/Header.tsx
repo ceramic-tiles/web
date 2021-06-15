@@ -1,72 +1,56 @@
 import {
   Box,
-  Button,
+  Center,
+  Divider,
   Flex,
-  Heading,
-  Link,
-  SlideFade,
-  useDisclosure,
+  Link as ChakraLink,
 } from '@chakra-ui/react'
 import React from 'react'
-import { FaSearch } from 'react-icons/fa'
-import { GiAllSeeingEye } from 'react-icons/gi'
 import ColorModeSwitcher from './ColorModeSwitcher'
 import DocInputForm from './DocInputForm'
+import LensSection from './LensSection'
+import Logo from './Logo'
 import SampleDocuments from './SampleDocuments'
 
-const Header = () => {
-  const { isOpen, onToggle } = useDisclosure()
+export interface HeaderProps {
+  schema: string
+  setLens: any
+  docId?: string
+}
+
+const Header: React.FC<HeaderProps> = ({ schema, setLens, docId }) => {
   return (
-    <Box borderBottomWidth={1}>
-      <Flex justifyContent="space-between" alignItems="center" px={6} my={6}>
-        <Box>
-          <Flex alignItems="center">
-            <Link href="/" _hover={{ textDecoration: 'none' }} mr={6}>
-              <Flex
-                justifyContent="space-between"
-                alignItems="center"
-                p={2}
-                borderRadius={10}
-                color="white"
-                bgGradient="linear(to-r, orange.500, orange.300)"
-              >
-                <Box mr={2}>
-                  <GiAllSeeingEye color="orange.500" size="40" />
-                </Box>
-                <Heading as="h1" size="lg" letterSpacing="-1px">
-                  Tiles
-                </Heading>
-              </Flex>
-            </Link>
-          </Flex>
-        </Box>
-        <Flex>
-          <Box display={isOpen ? 'none' : 'inherit'} mr={3}>
-            <Button
-              leftIcon={<FaSearch />}
-              onClick={onToggle}
-              bgGradient="linear(to-r, gray.600, gray.500)"
-              _hover={{
-                bgGradient: 'linear(to-r, gray.500, gray.400)',
-              }}
-              _active={{
-                bgGradient: 'linear(to-r, gray.400, gray.300)',
-              }}
-              color="white"
-            >
-              Look Up Doc
-            </Button>
-          </Box>
-          <SampleDocuments />
-          <ColorModeSwitcher justifySelf="flex-end" />
-        </Flex>
+    <Flex
+      alignItems="center"
+      justifyContent="space-between"
+      borderBottomWidth={1}
+      p={{ base: 0, lg: 2 }}
+    >
+      <Box>
+        <ChakraLink
+          href="/"
+          _hover={{ textDecoration: 'none' }}
+          _focus={{ outline: 'none' }}
+        >
+          <Logo />
+        </ChakraLink>
+      </Box>
+      <Flex alignItems="center">
+        <DocInputForm docId={docId} />
+        <Center h="100%">
+          <Divider orientation="vertical" mx={{ base: 0, lg: 3 }} />
+        </Center>
+        {/* <Box mx="left">
+          <LensSection schema={schema} setLens={setLens} />
+        </Box> */}
       </Flex>
-      <SlideFade in={isOpen}>
-        <Box m={12} display={isOpen ? 'visible' : 'none'}>
-          <DocInputForm onToggle={onToggle} />
+      <Flex display={{ base: 'none', lg: 'inherit' }}>
+        <Box mr={3}>
+          <SampleDocuments />
         </Box>
-      </SlideFade>
-    </Box>
+        <ColorModeSwitcher justifySelf="flex-end" />
+      </Flex>
+    </Flex>
   )
 }
 

@@ -20,6 +20,7 @@ import { usePagination } from 'use-pagination-firestore'
 import LoadingTableRows from './components/LoadingTableRows'
 import db from './firebase'
 import dayjs from 'dayjs'
+import Hero from './components/Hero'
 
 interface DocListProps extends RouteComponentProps {}
 
@@ -39,8 +40,9 @@ const DocumentList = (props: DocListProps) => {
 
   return (
     <Box p={6}>
+      <Hero />
       <Flex alignItems="center" justifyContent="space-between" m={6}>
-        <Heading size="md">All Documents</Heading>
+        <Heading size="md">Browse All Streams</Heading>
         <HStack fontSize="sm" divider={<StackDivider />}>
           <Button
             onClick={getPrev}
@@ -62,7 +64,7 @@ const DocumentList = (props: DocListProps) => {
         <Table>
           <Thead>
             <Tr>
-              <Th>Document ID</Th>
+              <Th>Stream ID</Th>
               <Th>Date Published</Th>
             </Tr>
           </Thead>

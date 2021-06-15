@@ -1,8 +1,23 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Flex, Select, Text } from '@chakra-ui/react'
+import {
+  Box,
+  Flex,
+  FormControl,
+  FormHelperText,
+  FormLabel,
+  Popover,
+  PopoverArrow,
+  PopoverBody,
+  PopoverCloseButton,
+  PopoverContent,
+  PopoverHeader,
+  PopoverTrigger,
+  Select,
+  Text,
+} from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
 import { ceramic } from '../App'
-
+import { VscQuestion } from 'react-icons/vsc'
 export interface LensSectionProps {
   schema?: string
   setLens: any
@@ -78,23 +93,52 @@ const LensSection: React.SFC<LensSectionProps> = (props) => {
   }, [])
 
   return (
-    <Flex alignItems="center">
-      <Text fontWeight="bold" mr={3}>
-        Pick Lens
-      </Text>
-      <Select
-        onChange={(e: any) => setLens(lenses[e.target.value])}
-        w={200}
-        mr={3}
-      >
-        <option value="default">Default</option>
-        {lensIds &&
-          lensIds?.map((lensId: string) => {
-            const lens = lenses[lensId]
-            return <option value={lensId}>{lens?.state?.content?.title}</option>
-          })}
-      </Select>
-    </Flex>
+    <FormControl id="lens" alignItems="center">
+      <Flex alignItems="center">
+        <FormLabel mb={0}>Lens</FormLabel>
+        <Select
+          onChange={(e: any) => setLens(lenses[e.target.value])}
+          w={{ base: '100%', lg: 130 }}
+          disabled={lensIds.length > 0}
+        >
+          <option value="default">Default</option>
+          {lensIds &&
+            lensIds?.map((lensId: string) => {
+              const lens = lenses[lensId]
+              return (
+                <option value={lensId}>{lens?.state?.content?.title}</option>
+              )
+            })}
+        </Select>
+        <Popover>
+          <Box m={0} ml={2}>
+            <PopoverTrigger>
+              <Flex alignItems="center" color="gray.500" fontSize="sm">
+                {/* <Box mr={1}>
+              <VscQuestion size="20px" />
+            </Box>{' '} */}
+                What are Lenses?
+              </Flex>
+            </PopoverTrigger>
+          </Box>
+          <PopoverContent>
+            <PopoverArrow />
+            <PopoverCloseButton />
+            <PopoverHeader>
+              <Flex alignItems="center">
+                <Box mr={1}>
+                  <VscQuestion />
+                </Box> What are Lenses?
+              </Flex>
+            </PopoverHeader>
+            <PopoverBody>
+              Lenses let you view Ceramic streams through different user
+              interfaces. 1 stream, infinite UIs. For now, streams always load with the Default Lens.
+            </PopoverBody>
+          </PopoverContent>
+        </Popover>
+      </Flex>
+    </FormControl>
   )
 }
 
