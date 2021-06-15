@@ -7,7 +7,7 @@ const Logo = (props) => {
   return (
     <Box>
       <Flex alignItems="center">
-        <Box mr={size === 'lg' ? 2 : 1}>
+        <Box mx={2}>
           <svg
             width={size === 'lg' ? 40 : 30}
             height={size === 'lg' ? 40 : 30}

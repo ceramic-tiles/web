@@ -42,7 +42,7 @@ const Hero = () => {
       </Center>
       <Box
         w={{ base: 'full', md: 11 / 12, xl: 8 / 12 }}
-        textAlign={{ base: 'left', md: 'center' }}
+        textAlign="center"
         mx="auto"
       >
         <chakra.h1
@@ -65,7 +65,7 @@ const Hero = () => {
           experience the emergence of a new interaction paradigm.
         </chakra.p>
         <Center>
-          <DocInputForm />
+          <DocInputForm baseBorder={1} />
         </Center>
       </Box>
     </Box>

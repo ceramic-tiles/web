@@ -40,9 +40,9 @@ const Header: React.FC<HeaderProps> = ({ schema, setLens, docId }) => {
         <Center h="100%">
           <Divider orientation="vertical" mx={{ base: 0, lg: 3 }} />
         </Center>
-        <Box mx="left">
+        {/* <Box mx="left">
           <LensSection schema={schema} setLens={setLens} />
-        </Box>
+        </Box> */}
       </Flex>
       <Flex display={{ base: 'none', lg: 'inherit' }}>
         <Box mr={3}>

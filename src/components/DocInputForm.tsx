@@ -14,15 +14,16 @@ interface DocInputFormProps {
   mb?: number
   isLoading?: boolean
   docId?: string
+  baseBorder?: number
 }
 
-const DocInputForm: React.SFC<DocInputFormProps> = ({ isLoading, docId }) => {
+const DocInputForm: React.SFC<DocInputFormProps> = ({ isLoading, docId, baseBorder = 0 }) => {
   const { handleSubmit, register, errors } = useForm()
   const onSubmit = (values: any) => navigate(`/document/${values.docId}`)
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <Box width={{ base: '325px', md: '775px' }} mr={1}>
+      <Box width={{ base: '450px', md: '775px' }} mr={1}>
         <InputGroup size="lg">
           <InputLeftAddon
             pointerEvents="none"
@@ -38,7 +39,7 @@ const DocInputForm: React.SFC<DocInputFormProps> = ({ isLoading, docId }) => {
             defaultValue={docId}
             ref={register()}
             placeholder="Enter Stream ID e.g. k3y52l7qbv1frxjdr9qpn9ldvbxb0jg4eig7wtjkdu6gk84vyazw9j4txf4o6d2io"
-            borderWidth={{base: 0, md: 1}}
+            borderWidth={{base: baseBorder, md: 1}}
             borderLeftWidth={1}
           />
           <InputRightElement
