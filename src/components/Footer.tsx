@@ -18,10 +18,13 @@ const Footer = () => {
           href="https://twitter.com/tannedoaksprout"
         >
           oaksprout
-        </Link>{' '}
-        &{' '}
+        </Link>
+        ,{' '}
         <Link textDecoration="underline" href="https://github.com/isidorosp">
           isidorosp
+        </Link>{' '}&{' '}
+        <Link textDecoration="underline" href="https://github.com/emersonmacro">
+          emersonmacro
         </Link>{' '}
         in support of{' '}
         <Link
