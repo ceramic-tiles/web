@@ -32,7 +32,7 @@ const DocumentList = (props: DocListProps) => {
     isEnd,
     getPrev,
     getNext,
-  } = usePagination(db.collection('documents').orderBy('timestamp', 'desc'), {
+  } = usePagination(db.collection('streams').orderBy('timestamp', 'desc'), {
     limit: 20,
   })
 

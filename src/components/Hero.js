@@ -1,23 +1,17 @@
-import React from 'react'
 import {
-  chakra,
   Box,
-  useColorModeValue,
-  Flex,
-  SimpleGrid,
-  GridItem,
-  VisuallyHidden,
-  Input,
-  Button,
-  Stack,
-  Icon,
   Center,
+  chakra,
+  Flex,
+  Icon,
+  useColorModeValue,
 } from '@chakra-ui/react'
+import React from 'react'
 import DocInputForm from './DocInputForm'
 import Logo from './Logo'
 
 const Hero = () => {
-  const Feature = props => (
+  const Feature = (props) => (
     <Flex alignItems="center" color={useColorModeValue(null, 'white')}>
       <Icon
         boxSize={4}
@@ -55,14 +49,28 @@ const Hero = () => {
           The Portal to a New Web
         </chakra.h1>
         <chakra.p
-          mb={6}
+          mb={3}
           fontSize={{ base: 'lg', md: 'xl' }}
           color="gray.500"
           lineHeight="base"
         >
-          Browse the Ceramic network and{' '}
-          <br/>
+          Browse the Ceramic network and <br />
           experience the emergence of a new interaction paradigm.
+        </chakra.p>
+        <chakra.p
+          mb={6}
+          fontSize={{ base: 'lg', md: 'xl' }}
+          color="gray.500"
+          lineHeight="base"
+          fontWeight="bold"
+        >
+          <chakra.span
+            bgGradient="linear(to-r, orange.500, orange.300)"
+            bgClip="text"
+          >
+            Now live on Ceramic mainnet!
+          </chakra.span>{" "}
+           🤩 🎉
         </chakra.p>
         <Center>
           <DocInputForm baseBorder={1} />
