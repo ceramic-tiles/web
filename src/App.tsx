@@ -11,7 +11,7 @@ export interface DocumentInterface {
   timestamp?: string
 }
 
-const API_URL = 'https://gateway-clay.ceramic.network'
+const API_URL = 'https://gateway.ceramic.network'
 export const ceramic = new CeramicClient(API_URL)
 
 interface AppProps extends RouteComponentProps {
