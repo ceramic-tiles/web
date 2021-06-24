@@ -47,9 +47,9 @@ const Header: React.FC<HeaderProps> = ({ schema, setLens, docId }) => {
         </Box> */}
       </Flex>
       <Flex display={{ base: 'none', lg: 'inherit' }}>
-        <Box mr={3}>
+        {/* <Box mr={3}>
           <SampleDocuments />
-        </Box>
+        </Box> */}
         <ColorModeSwitcher justifySelf="flex-end" />
       </Flex>
     </Flex>
