@@ -41,7 +41,7 @@ const DocumentList = (props: DocListProps) => {
   return (
     <Box p={6}>
       <Hero />
-      <Flex alignItems="center" justifyContent="space-between" m={6}>
+      {/* <Flex alignItems="center" justifyContent="space-between" m={6}>
         <Heading size="md">Browse All Streams</Heading>
         <HStack fontSize="sm" divider={<StackDivider />}>
           <Button
@@ -90,7 +90,7 @@ const DocumentList = (props: DocListProps) => {
             )}
           </Tbody>
         </Table>
-      </Box>
+      </Box> */}
     </Box>
   )
 }
